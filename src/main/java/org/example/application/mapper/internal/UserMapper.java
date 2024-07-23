@@ -1,11 +1,14 @@
-package org.example.mapper.internal;
+package org.example.application.mapper.internal;
 
-import org.example.entity.UserEntity;
-import org.example.record.UserRecord;
+import org.example.application.entity.UserEntity;
+import org.example.application.record.UserRecord;
 
 public class UserMapper {
 
     public static UserRecord toRecord(UserEntity entity) {
+        if (entity == null) {
+            return null;
+        }
         return new UserRecord(entity.getUuid(), entity.getEmail(), entity.getFirstName(), entity.getLastName());
     }
 

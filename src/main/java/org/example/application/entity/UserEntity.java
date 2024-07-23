@@ -1,29 +1,29 @@
-package org.example.entity;
+package org.example.application.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
-import lombok.ToString;
 
 
 @Entity
 @Getter
 @Setter
+@Table(name = "USERS", schema = "SPRINGDEMO")
 public class UserEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+    @Column(name = "UUID")
     private String uuid;
+    @Column(name = "EMAIL")
     private String email;
+    @Column(name = "FIRST_NAME")
     private String firstName;
+    @Column(name = "LAST_NAME")
     private String lastName;
 
-    protected UserEntity() {
-    }
+    public UserEntity() {}
 
     public UserEntity(String uuid, String email, String firstName, String lastName) {
         this.uuid = uuid;
