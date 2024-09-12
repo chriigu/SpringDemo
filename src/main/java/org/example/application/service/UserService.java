@@ -8,7 +8,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
+import java.util.Collection;
 
 @Service
 public class UserService {
@@ -22,12 +22,19 @@ public class UserService {
 
     public UserRecord findUserByUuid(String uuid) {
         UserEntity byUuid = userRepository.findByUuidEquals(uuid);
-
-        // Search all users
-        List<UserEntity> all = userRepository.findAll();
         log.info("UserEntity Result {}", byUuid);
-        log.info("UserEntity Count Result {}", all.size());
         return UserMapper.toRecord(byUuid);
-//        return null;
+    }
+
+    public Collection<UserRecord> findUsers() {
+        Collection<UserEntity> userEntities = userRepository.findAll();
+        log.info("UserEntity Result Count {}", userEntities.size());
+        return userEntities.stream().map(UserMapper::toRecord).toList();
+    }
+
+    public Collection<UserRecord> searchUsers(String searchParam) {
+        Collection<UserEntity> userEntities = userRepository.findAllByEmailOrFirstNameOrLastNameContainingIgnoreCase(searchParam, searchParam, searchParam);
+        log.info("UserEntity Result Count {}", userEntities.size());
+        return userEntities.stream().map(UserMapper::toRecord).toList();
     }
 }

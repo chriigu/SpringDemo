@@ -9,20 +9,21 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Collection;
+import java.util.List;
 
 @RestController
-public class AccountController {
+public class UserController {
 
-    private static final Logger log = LoggerFactory.getLogger(AccountController.class);
+    private static final Logger log = LoggerFactory.getLogger(UserController.class);
 
 
     public final UserService userService;
 
-    public AccountController(UserService userService) {
+    public UserController(UserService userService) {
         this.userService = userService;
     }
 
-    @GetMapping("/account")
+    @GetMapping("/user")
     public UserRecord readUser(@RequestParam(value = "userId", defaultValue = "") String userId) {
         log.info("Get user with {}", userId);
         return userService.findUserByUuid(userId);
