@@ -28,7 +28,7 @@ public class AccountController {
         return userService.findUserByUuid(userId);
     }
 
-    @GetMapping("/users")
+    @GetMapping("/accounts")
     public Collection<UserRecord> readUsers(@RequestParam(value = "search", defaultValue = "") String searchParam) {
         log.info("Get users");
         if(searchParam == null || searchParam.isEmpty()) {

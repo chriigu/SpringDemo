@@ -8,7 +8,7 @@ import lombok.Setter;
 @Entity
 @Getter
 @Setter
-@Table(name = "USERS", schema = "SPRINGDEMO")
+@Table(name = "USERS", schema = "springdemo")
 public class UserEntity {
 
     @Id
