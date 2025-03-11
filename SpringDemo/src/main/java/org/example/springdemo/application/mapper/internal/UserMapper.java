@@ -1,7 +1,7 @@
-package org.example.application.mapper.internal;
+package org.example.springdemo.application.mapper.internal;
 
-import org.example.application.entity.UserEntity;
-import org.example.application.record.UserRecord;
+import org.example.springdemo.application.entity.UserEntity;
+import org.example.springdemo.application.record.UserRecord;
 
 public class UserMapper {
 

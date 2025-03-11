@@ -1,9 +1,9 @@
-package org.example.application.service;
+package org.example.springdemo.application.service;
 
-import org.example.application.entity.UserEntity;
-import org.example.application.mapper.internal.UserMapper;
-import org.example.application.record.UserRecord;
-import org.example.application.repository.UserRepository;
+import org.example.springdemo.application.entity.UserEntity;
+import org.example.springdemo.application.mapper.internal.UserMapper;
+import org.example.springdemo.application.record.UserRecord;
+import org.example.springdemo.application.repository.UserRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;

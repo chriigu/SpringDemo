@@ -1,7 +1,7 @@
-package org.example.application.core;
+package org.example.springdemo.application.controller.rest;
 
-import org.example.application.record.UserRecord;
-import org.example.application.service.UserService;
+import org.example.springdemo.application.record.UserRecord;
+import org.example.springdemo.application.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Collection;
-import java.util.List;
 
 @RestController
 public class UserController {
