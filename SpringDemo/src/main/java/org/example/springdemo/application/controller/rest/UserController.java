@@ -1,5 +1,6 @@
 package org.example.springdemo.application.controller.rest;
 
+import org.example.openapi.api.UserApiDelegate;
 import org.example.springdemo.application.record.UserRecord;
 import org.example.springdemo.application.service.UserService;
 import org.slf4j.Logger;
@@ -11,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.Collection;
 
 @RestController
-public class UserController {
+public class UserController implements UserApiDelegate {
 
     private static final Logger log = LoggerFactory.getLogger(UserController.class);
 
