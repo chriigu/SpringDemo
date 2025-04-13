@@ -1,0 +1,15 @@
+mat-grid-list {
+  color: white;
+  border-radius: 10px;
+}
+mat-grid-tile {
+  border-radius: 10px;
+  border: solid;
+}
+
+.nav-link-button {
+  background-color: rgba(53, 142, 238, 0.82);
+  min-width: 100%;
+  min-height: 100%;
+}
+

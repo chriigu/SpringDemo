@@ -1,0 +1,31 @@
+<mat-drawer-container class="example-container" autosize>
+  <mat-drawer #drawer class="example-sidenav" mode="push">
+    <mat-grid-list cols="1" rowHeight="1:1" gutterSize="5px">
+      <mat-grid-tile><a mat-fab extended routerLink="." class="nav-link-button">
+        <mat-icon>home</mat-icon>
+        Home
+      </a></mat-grid-tile>
+      <mat-grid-tile><a mat-fab extended routerLink="/users" class="nav-link-button">
+        <mat-icon>person_search</mat-icon>
+        Users
+      </a></mat-grid-tile>
+      <mat-grid-tile><a mat-fab extended routerLink="/users" class="nav-link-button">
+        <mat-icon>favorite</mat-icon>
+        Accounts
+      </a></mat-grid-tile>
+    </mat-grid-list>
+    <mat-sidenav-content>
+      <app-side-nav-bar [template]="users"></app-side-nav-bar>
+      <ng-template #users>
+      <app-user-search></app-user-search>
+    </ng-template>
+    </mat-sidenav-content>
+  </mat-drawer>
+
+  <div class="example-sidenav-content">
+    <button type="button" mat-button (click)="drawer.toggle()">
+      Toggle sidenav
+    </button>
+  </div>
+
+</mat-drawer-container>

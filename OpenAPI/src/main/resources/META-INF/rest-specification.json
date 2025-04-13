@@ -157,13 +157,16 @@
       },
       "CreateUserRequest": {
         "email": {
-          "$ref": "#/components/schemas/email"
+          "$ref": "#/components/schemas/email",
+          "required": true
         },
         "firstName": {
-          "$ref": "#/components/schemas/firstName"
+          "$ref": "#/components/schemas/firstName",
+          "required": true
         },
         "lastName": {
-          "$ref": "#/components/schemas/lastName"
+          "$ref": "#/components/schemas/lastName",
+          "required": true
         }
       },
       "DeleteUserRequest": {

@@ -41,6 +41,26 @@
               <arguments>install</arguments>
             </configuration>
           </execution>
+          <!-- Build API -->
+          <execution>
+            <id>npm-build-api</id>
+            <goals>
+              <goal>npm</goal>
+            </goals>
+            <configuration>
+              <arguments>run generate:api</arguments>
+            </configuration>
+          </execution>
+          <!-- Add Angular Material -->
+          <execution>
+            <id>npm-add-angular-material</id>
+            <goals>
+              <goal>npm</goal>
+            </goals>
+            <configuration>
+              <arguments>add-angular-material</arguments>
+            </configuration>
+          </execution>
           <!-- Build Angular -->
           <execution>
             <id>npm-build</id>
