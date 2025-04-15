@@ -1,13 +1,29 @@
 import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import {NavigationEnd, Router, RouterOutlet} from '@angular/router';
+import {filter} from 'rxjs';
+import {HomeComponent} from './core/components/home/home.component';
+import {SideNavBarComponent} from './core/components/sidenav/side-nav-bar/side-nav-bar.component';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet],
+  imports: [RouterOutlet, HomeComponent, SideNavBarComponent],
   templateUrl: './app.component.html',
   standalone: true,
   styleUrl: './app.component.css'
 })
 export class AppComponent {
   title = 'AngularDemo';
+  showHomepage = true;
+
+
+  constructor(private router: Router) {
+    this.router.events
+      .pipe(filter(event => event instanceof NavigationEnd))
+      .subscribe((event: NavigationEnd) => {
+        let urlAfterRedirects = event.urlAfterRedirects;
+        console.log('URL changed to:', urlAfterRedirects);
+        this.showHomepage = urlAfterRedirects === '/';
+      });
+  }
+
 }

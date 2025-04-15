@@ -1,4 +1,8 @@
-<router-outlet />
+@if(showHomepage) {
+  <app-home />
+} @else {
+  <app-side-nav-bar />
+}
 
 <!--&lt;!&ndash; * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * &ndash;&gt;-->
 <!--&lt;!&ndash; * * * * * * * * * * * The content below * * * * * * * * * * * &ndash;&gt;-->

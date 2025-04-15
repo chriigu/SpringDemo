@@ -1,12 +1,9 @@
-import { Component } from '@angular/core';
-import {SideNavBarComponent} from '../sidenav/side-nav-bar/side-nav-bar.component';
+import {Component} from '@angular/core';
 
 
 @Component({
   selector: 'app-user-search',
-  imports: [
-    SideNavBarComponent
-  ],
+  imports: [],
   templateUrl: './user-search.component.html',
   standalone: true,
   styleUrl: './user-search.component.css'
