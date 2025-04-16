@@ -1,25 +1,27 @@
-<mat-sidenav-container autosize>
-  <mat-sidenav #sidenav mode="push" opened>
-    <p><a mat-fab extended routerLink="." class="nav-link-button">
-      <mat-icon>home</mat-icon>
-      Home
-    </a></p>
-    <a mat-fab extended routerLink="/users" class="nav-link-button">
-      <mat-icon>person_search</mat-icon>
-      Users
-    </a>
-
-    <a mat-fab extended routerLink="/users" class="nav-link-button">
-      <mat-icon>favorite</mat-icon>
-      Accounts
-    </a>
+<mat-sidenav-container>
+  <mat-sidenav #sidenav mode="side" opened>
+      <p><a mat-fab extended routerLink="." class="nav-link-button">
+        <mat-icon>home</mat-icon>
+        Home
+      </a></p>
+      <p>
+        <a mat-fab extended routerLink="/users" class="nav-link-button">
+          <mat-icon>person_search</mat-icon>
+          Users
+        </a></p>
+      <p>
+        <a mat-fab extended routerLink="/users" class="nav-link-button">
+          <mat-icon>favorite</mat-icon>
+          Accounts
+        </a>
+      </p>
   </mat-sidenav>
   <mat-sidenav-content>
-    <div class="example-sidenav-content">
-      <button type="button" mat-button (click)="sidenav.toggle()">
-        Toggle sidenav
-      </button>
-    </div>
+<!--    <div class="example-sidenav-content">-->
+<!--      <button type="button" mat-button (click)="sidenav.toggle()">-->
+<!--        Toggle sidenav-->
+<!--      </button>-->
+<!--    </div>-->
     <router-outlet/>
   </mat-sidenav-content>
 
