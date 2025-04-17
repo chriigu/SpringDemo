@@ -1,12 +1,12 @@
-import { Component } from '@angular/core';
-import {NavigationEnd, Router, RouterOutlet} from '@angular/router';
+import {Component} from '@angular/core';
+import {NavigationEnd, Router} from '@angular/router';
 import {filter} from 'rxjs';
 import {HomeComponent} from './core/components/home/home.component';
 import {SideNavBarComponent} from './core/components/sidenav/side-nav-bar/side-nav-bar.component';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, HomeComponent, SideNavBarComponent],
+  imports: [HomeComponent, SideNavBarComponent],
   templateUrl: './app.component.html',
   standalone: true,
   styleUrl: './app.component.css'

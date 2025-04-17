@@ -1,16 +1,17 @@
 <mat-sidenav-container>
   <mat-sidenav #sidenav mode="side" opened>
-      <p><a mat-fab extended routerLink="." class="nav-link-button">
+      <p class="sidenav-item"><a mat-fab extended routerLink="." routerLinkActive="active-link"
+                                 [routerLinkActiveOptions]="{ exact: true }">
         <mat-icon>home</mat-icon>
         Home
       </a></p>
-      <p>
-        <a mat-fab extended routerLink="/users" class="nav-link-button">
+      <p class="sidenav-item">
+        <a mat-fab extended routerLink="/users" routerLinkActive="active-link" [routerLinkActiveOptions]="{ exact: true }">
           <mat-icon>person_search</mat-icon>
           Users
         </a></p>
-      <p>
-        <a mat-fab extended routerLink="/users" class="nav-link-button">
+      <p class="sidenav-item">
+        <a mat-fab extended routerLink="/accounts" routerLinkActive="active-link" [routerLinkActiveOptions]="{ exact: true }">
           <mat-icon>favorite</mat-icon>
           Accounts
         </a>

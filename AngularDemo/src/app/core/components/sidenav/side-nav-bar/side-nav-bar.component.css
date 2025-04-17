@@ -1,3 +1,21 @@
 mat-sidenav-container {
-  min-height: fit-content;
+  width: auto;
+  min-height: 100vh;
+  height: auto;
 }
+
+/*mat-sidenav {*/
+/*  border: solid rgba(53, 142, 238, 0.82);*/
+/*  border-radius: 5px;*/
+/*}*/
+
+/*.sidenav-item {*/
+/*  border: solid rgba(53, 142, 238, 0.82);*/
+/*  border-radius: 5px;*/
+/*  margin: 0;*/
+/*}*/
+
+/*.active-link {*/
+/*  background-color: rgba(53, 142, 238, 0.82);*/
+/*  color: white;*/
+/*}*/

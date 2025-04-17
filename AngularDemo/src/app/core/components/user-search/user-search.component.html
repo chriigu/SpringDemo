@@ -1,1 +1,24 @@
-<p>user-search works!</p>
+<form #userSearchForm="ngForm">
+  <mat-form-field appearance="fill">
+    <mat-label>Both a label and a placeholder</mat-label>
+    <input id="userFirstName" name="firstName" type="text" matInput [(ngModel)]="userFirstName" />
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Both a label and a placeholder</mat-label>
+    <input id="userLastName" name="lastName" type="text" matInput [(ngModel)]="userLastName" />
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Both a label and a placeholder</mat-label>
+    <input id="userEmail" name="email" type="text" matInput [(ngModel)]="userEmail" />
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Both a label and a placeholder</mat-label>
+    <input id="userBirthdate" name="birthdate" type="date" matInput [(ngModel)]="userBirthdate" />
+  </mat-form-field>
+
+  <button type="submit" class="btn btn-success"
+          [disabled]="areAllFieldsEmpty()">Search User</button>
+</form>

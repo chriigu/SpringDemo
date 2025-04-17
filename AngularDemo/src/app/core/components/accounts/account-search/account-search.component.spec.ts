@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ContentComponent } from './content.component';
+import { AccountSearchComponent } from './account-search.component';
 
-describe('ContentComponent', () => {
-  let component: ContentComponent;
-  let fixture: ComponentFixture<ContentComponent>;
+describe('AccountSearchComponent', () => {
+  let component: AccountSearchComponent;
+  let fixture: ComponentFixture<AccountSearchComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ContentComponent]
+      imports: [AccountSearchComponent]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(ContentComponent);
+    fixture = TestBed.createComponent(AccountSearchComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -1,33 +1,20 @@
 import {Component} from '@angular/core';
-import {
-  MatDrawer,
-  MatDrawerContainer,
-  MatDrawerContent,
-  MatSidenav,
-  MatSidenavContainer,
-  MatSidenavContent
-} from '@angular/material/sidenav';
-import {MatButton, MatFabAnchor} from '@angular/material/button';
-import {RouterLink, RouterOutlet} from '@angular/router';
+import {MatSidenav, MatSidenavContainer, MatSidenavContent} from '@angular/material/sidenav';
+import {RouterLink, RouterLinkActive, RouterOutlet} from '@angular/router';
+import {MatFabAnchor} from '@angular/material/button';
 import {MatIcon} from '@angular/material/icon';
-import {MatGridList, MatGridTile} from '@angular/material/grid-list';
 
 @Component({
   selector: 'app-side-nav-bar',
   imports: [
-    MatDrawerContainer,
-    MatButton,
-    MatDrawer,
-    MatFabAnchor,
-    MatIcon,
-    RouterLink,
-    MatGridList,
-    MatGridTile,
+    MatSidenavContainer,
     MatSidenavContent,
-    RouterOutlet,
-    MatDrawerContent,
+    MatFabAnchor,
+    RouterLink,
+    RouterLinkActive,
+    MatIcon,
     MatSidenav,
-    MatSidenavContainer
+    RouterOutlet
   ],
   templateUrl: './side-nav-bar.component.html',
   standalone: true,
