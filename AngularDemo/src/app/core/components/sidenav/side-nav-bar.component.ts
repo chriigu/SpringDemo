@@ -3,6 +3,7 @@ import {MatSidenav, MatSidenavContainer, MatSidenavContent} from '@angular/mater
 import {RouterLink, RouterLinkActive, RouterOutlet} from '@angular/router';
 import {MatFabAnchor} from '@angular/material/button';
 import {MatIcon} from '@angular/material/icon';
+import {AppRoutes} from '../../../app.routes';
 
 @Component({
   selector: 'app-side-nav-bar',
@@ -21,4 +22,5 @@ import {MatIcon} from '@angular/material/icon';
   styleUrl: './side-nav-bar.component.css'
 })
 export class SideNavBarComponent {
+  protected readonly AppRoutes = AppRoutes;
 }

@@ -2,6 +2,7 @@ import {Component} from '@angular/core';
 import {FormsModule} from '@angular/forms';
 import {MatFormField, MatLabel} from '@angular/material/form-field';
 import {MatInput} from '@angular/material/input';
+import {MatGridList, MatGridTile} from '@angular/material/grid-list';
 
 
 @Component({
@@ -10,7 +11,9 @@ import {MatInput} from '@angular/material/input';
     MatFormField,
     FormsModule,
     MatInput,
-    MatLabel
+    MatLabel,
+    MatGridList,
+    MatGridTile
   ],
   templateUrl: './user-search.component.html',
   standalone: true,

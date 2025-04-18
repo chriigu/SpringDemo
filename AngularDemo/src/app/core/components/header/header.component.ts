@@ -11,9 +11,10 @@ import {MatSlideToggle} from '@angular/material/slide-toggle';
   styleUrl: './header.component.css'
 })
 export class HeaderComponent {
-  darkModeEnabled = false;
+  darkModeEnabled = true;
 
   constructor(private renderer: Renderer2) {
+    this.renderer.addClass(document.body, 'dark'); // Dark mode is default
   }
 
   toggleDarkMode(event: any)

@@ -2,8 +2,8 @@ import {Component} from '@angular/core';
 import {NavigationEnd, Router} from '@angular/router';
 import {filter} from 'rxjs';
 import {HomeComponent} from './core/components/home/home.component';
-import {SideNavBarComponent} from './core/components/sidenav/side-nav-bar/side-nav-bar.component';
-import {HeaderComponent} from './core/components/header/header/header.component';
+import {SideNavBarComponent} from './core/components/sidenav/side-nav-bar.component';
+import {HeaderComponent} from './core/components/header/header.component';
 
 @Component({
   selector: 'app-root',
@@ -23,7 +23,7 @@ export class AppComponent {
       .subscribe((event: NavigationEnd) => {
         let urlAfterRedirects = event.urlAfterRedirects;
         console.log('URL changed to:', urlAfterRedirects);
-        this.showHomepage = urlAfterRedirects === '/';
+        this.showHomepage = urlAfterRedirects === '/'; // Can't use AppRoutes.HOME here
       });
   }
 
