@@ -1,11 +1,7 @@
 @use '@angular/material' as mat;
 
-@mixin apply-dark-mode {
-  color-scheme: dark;
-}
-
 html {
-  color-scheme: light dark;
+  color-scheme: light-dark;
   @include mat.theme((
     color: (
       primary: mat.$azure-palette,
@@ -23,10 +19,13 @@ html {
 }
 
 
+// Needed for token.scss to work
 body {
-  margin: 0;
+  background: var(--mat-sys-surface);
+  color: var(--mat-sys-on-surface);
+}
 
-  &.dark-mode {
-    @include apply-dark-mode;
-  }
+// Needed to swap to dark-mode
+body.dark {
+  color-scheme: dark;
 }
