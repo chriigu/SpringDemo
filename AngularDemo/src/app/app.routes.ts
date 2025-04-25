@@ -1,8 +1,9 @@
 import { Routes } from '@angular/router';
 import {HomeComponent} from './core/components/home/home.component';
 import {UserComponent} from './core/components/user/user.component';
-import {UserSearchComponent} from './core/components/user-search/user-search.component';
+import {UserSearchFormComponent} from './core/components/user-search/form/user-search-form.component';
 import {AccountSearchComponent} from './core/components/account-search/account-search.component';
+import {UserSearchComponent} from './core/components/user-search/user-search.component';
 
 export const AppRoutes = {
     HOME: '',

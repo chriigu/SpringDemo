@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component} from '@angular/core';
+import {ChangeDetectionStrategy, Component, EventEmitter, Output} from '@angular/core';
 import {FormsModule} from '@angular/forms';
 import {MatFormFieldModule, MatLabel} from '@angular/material/form-field';
 import {MatHint, MatInputModule} from '@angular/material/input';
@@ -9,10 +9,12 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatMomentDateModule} from '@angular/material-moment-adapter';
 import moment from 'moment';
 import {DateAdapter} from '@angular/material/core';
+import {UserDto} from '../../../../generated/core/api/v1';
+import {UserSearchService} from '../../../services/user-search/user-search.service';
 
 
 @Component({
-  selector: 'app-user-search',
+  selector: 'app-user-search-form',
   providers: [],
   imports: [
     MatFormFieldModule,
@@ -29,16 +31,18 @@ import {DateAdapter} from '@angular/material/core';
     MatMomentDateModule,
     MatHint
   ],
-  templateUrl: './user-search.component.html',
+  templateUrl: './user-search-form.component.html',
   standalone: true,
-  styleUrl: './user-search.component.css',
+  styleUrl: './user-search-form.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class UserSearchComponent {
+export class UserSearchFormComponent {
   userFirstName = '';
   userLastName = '';
   userEmail = '';
   userBirthdate: moment.Moment | null = null;
+
+  @Output() userSearchEvent = new EventEmitter<UserDto[]>();
 
   areAllFieldsEmpty(): boolean {
     return !this.userFirstName && !this.userLastName && !this.userEmail && !this.userBirthdate;
@@ -48,5 +52,13 @@ export class UserSearchComponent {
     console.log('DateAdapter:', this.adapter.constructor.name);
     console.log('Moment locale:', moment.locale()); // should log 'de-ch'
   }
-  constructor(private adapter: DateAdapter<any>) {}
+
+  constructor(private adapter: DateAdapter<any>, private userSearchService: UserSearchService) {
+  }
+
+  submitUserSearch() {
+    // TODO add userSearchService search
+    console.log("Search user");
+    this.userSearchService.searchUsers();
+  }
 }

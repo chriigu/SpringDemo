@@ -4,7 +4,7 @@ import {UserControllerService} from '../../../generated/core/api/v1';
 @Injectable({
   providedIn: 'root'
 })
-export class UserSearchServiceService {
+export class UserService {
 
   userControllerService = inject(UserControllerService);
 

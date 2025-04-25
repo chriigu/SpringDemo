@@ -1,5 +1,4 @@
-<form #userSearchForm="ngForm">
-
+<div class="user-search-form">
   <mat-form-field>
     <mat-label>Firstname</mat-label>
     <input id="userFirstName" name="firstName" type="text" matInput [(ngModel)]="userFirstName"/>
@@ -14,14 +13,20 @@
   </mat-form-field>
   <mat-form-field>
     <mat-label>Birthdate</mat-label>
-    <input matInput id='userBirthdate' name="birthdate" [matDatepicker]="picker"  placeholder="TT.MM.JJJJ" [(ngModel)]="userBirthdate" />
+    <input matInput id='userBirthdate' name="birthdate" [matDatepicker]="picker" placeholder="TT.MM.JJJJ"
+           [(ngModel)]="userBirthdate"/>
     <mat-hint>TT.MM.JJJJ</mat-hint>
     <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
     <mat-datepicker #picker></mat-datepicker>
   </mat-form-field>
-  <button type="submit" mat-fab extended
+  <button (click)="submitUserSearch()" mat-fab extended
           [disabled]="areAllFieldsEmpty()">
     <mat-icon>search</mat-icon>
     Search User
   </button>
-</form>
+<!--  <button  mat-fab extended-->
+<!--           [disabled]="areAllFieldsEmpty()">-->
+<!--    <mat-icon>search</mat-icon>-->
+<!--    Search User-->
+<!--  </button>-->
+</div>
