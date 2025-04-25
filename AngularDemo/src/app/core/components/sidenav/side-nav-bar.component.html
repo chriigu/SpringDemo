@@ -1,17 +1,17 @@
 <mat-sidenav-container>
   <mat-sidenav #sidenav mode="side" opened>
-      <p class="sidenav-item"><a mat-fab extended [routerLink]="AppRoutes.HOME" routerLinkActive="active-link"
+      <p class="sidenav-item"><a mat-fab extended class="nav-link-button" [routerLink]="AppRoutes.HOME" routerLinkActive="active-link"
                                  [routerLinkActiveOptions]="{ exact: true }">
         <mat-icon>home</mat-icon>
         Home
       </a></p>
       <p class="sidenav-item">
-        <a mat-fab extended [routerLink]="AppRoutes.USERS" routerLinkActive="active-link" [routerLinkActiveOptions]="{ exact: true }">
+        <a mat-fab extended class="nav-link-button" [routerLink]="AppRoutes.USERS" routerLinkActive="active-link" [routerLinkActiveOptions]="{ exact: true }">
           <mat-icon>person_search</mat-icon>
           Users
         </a></p>
       <p class="sidenav-item">
-        <a mat-fab extended [routerLink]="AppRoutes.ACCOUNTS" routerLinkActive="active-link" [routerLinkActiveOptions]="{ exact: true }">
+        <a mat-fab extended class="nav-link-button" [routerLink]="AppRoutes.ACCOUNTS" routerLinkActive="active-link" [routerLinkActiveOptions]="{ exact: true }">
           <mat-icon>favorite</mat-icon>
           Accounts
         </a>

@@ -1,32 +1,27 @@
 <form #userSearchForm="ngForm">
-  <mat-grid-list cols="4" rowHeight="2:1">
-    <mat-grid-tile>
-      <mat-form-field>
-        <mat-label>Both a label and a placeholder</mat-label>
-        <input id="userFirstName" name="firstName" type="text" matInput [(ngModel)]="userFirstName" />
-      </mat-form-field>
-    </mat-grid-tile>
-    <mat-grid-tile>
-      <mat-form-field>
-        <mat-label>Both a label and a placeholder</mat-label>
-        <input id="userLastName" name="lastName" type="text" matInput [(ngModel)]="userLastName" />
-      </mat-form-field>
-    </mat-grid-tile>
-    <mat-grid-tile>
-      <mat-form-field>
-        <mat-label>Both a label and a placeholder</mat-label>
-        <input id="userEmail" name="email" type="text" matInput [(ngModel)]="userEmail" />
-      </mat-form-field>
-    </mat-grid-tile>
-    <mat-grid-tile>
-      <mat-form-field>
-        <mat-label>Both a label and a placeholder</mat-label>
-        <input id="userBirthdate" name="birthdate" type="date" matInput [(ngModel)]="userBirthdate" />
-      </mat-form-field>
-    </mat-grid-tile>
-    <mat-grid-tile>
-      <button type="submit" class="btn btn-success"
-              [disabled]="areAllFieldsEmpty()">Search User</button>
-    </mat-grid-tile>
-  </mat-grid-list>
+
+  <mat-form-field>
+    <mat-label>Firstname</mat-label>
+    <input id="userFirstName" name="firstName" type="text" matInput [(ngModel)]="userFirstName"/>
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Lastname</mat-label>
+    <input id="userLastName" name="lastName" type="text" matInput [(ngModel)]="userLastName"/>
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Email</mat-label>
+    <input id="userEmail" name="email" type="text" matInput [(ngModel)]="userEmail"/>
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Birthdate</mat-label>
+    <input matInput id='userBirthdate' name="birthdate" [matDatepicker]="picker"  placeholder="TT.MM.JJJJ" [(ngModel)]="userBirthdate" />
+    <mat-hint>TT.MM.JJJJ</mat-hint>
+    <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker #picker></mat-datepicker>
+  </mat-form-field>
+  <button type="submit" mat-fab extended
+          [disabled]="areAllFieldsEmpty()">
+    <mat-icon>search</mat-icon>
+    Search User
+  </button>
 </form>

@@ -4,18 +4,19 @@ mat-sidenav-container {
   height: auto;
 }
 
-/*mat-sidenav {*/
-/*  border: solid rgba(53, 142, 238, 0.82);*/
-/*  border-radius: 5px;*/
-/*}*/F
+.nav-link-button {
+  min-width: 100%;
+  min-height: 100%;
+}
 
-/*.sidenav-item {*/
-/*  border: solid rgba(53, 142, 238, 0.82);*/
-/*  border-radius: 5px;*/
-/*  margin: 0;*/
-/*}*/
+mat-sidenav {
+  width: fit-content;
+}
 
-/*.active-link {*/
-/*  background-color: rgba(53, 142, 238, 0.82);*/
-/*  color: white;*/
-/*}*/
+mat-sidenav-content {
+  padding: 8px;
+}
+
+.sidenav-item {
+  margin: 2px 8px 2px 8px;
+}
