@@ -61,4 +61,12 @@ export class UserSearchFormComponent {
     console.log("Search user");
     this.userSearchService.searchUsers();
   }
+
+  clearSearchResult() {
+    this.userSearchService.clearSearchResult();
+  }
+
+  searchResultEmpty() {
+    return this.userSearchService.;
+  }
 }

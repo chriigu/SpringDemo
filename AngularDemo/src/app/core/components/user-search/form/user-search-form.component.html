@@ -24,6 +24,11 @@
     <mat-icon>search</mat-icon>
     Search User
   </button>
+  <button (click)="clearSearchResult()" mat-fab extended
+  [disabled]="searchResultEmpty()">
+    <mat-icon>bin</mat-icon>
+    Clear
+  </button>
 <!--  <button  mat-fab extended-->
 <!--           [disabled]="areAllFieldsEmpty()">-->
 <!--    <mat-icon>search</mat-icon>-->
