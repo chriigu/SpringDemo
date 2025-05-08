@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, EventEmitter, Output} from '@angular/core';
+import {ChangeDetectionStrategy, Component} from '@angular/core';
 import {FormsModule} from '@angular/forms';
 import {MatFormFieldModule, MatLabel} from '@angular/material/form-field';
 import {MatHint, MatInputModule} from '@angular/material/input';
@@ -9,7 +9,6 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatMomentDateModule} from '@angular/material-moment-adapter';
 import moment from 'moment';
 import {DateAdapter} from '@angular/material/core';
-import {UserDto} from '../../../../generated/core/api/v1';
 import {UserSearchService} from '../../../services/user-search/user-search.service';
 
 
@@ -42,8 +41,6 @@ export class UserSearchFormComponent {
   userEmail = '';
   userBirthdate: moment.Moment | null = null;
 
-  @Output() userSearchEvent = new EventEmitter<UserDto[]>();
-
   areAllFieldsEmpty(): boolean {
     return !this.userFirstName && !this.userLastName && !this.userEmail && !this.userBirthdate;
   }
@@ -57,16 +54,23 @@ export class UserSearchFormComponent {
   }
 
   submitUserSearch() {
-    // TODO add userSearchService search
     console.log("Search user");
     this.userSearchService.searchUsers();
   }
 
   clearSearchResult() {
     this.userSearchService.clearSearchResult();
+    this.userFirstName = '';
+    this.userLastName = '';
+    this.userEmail = '';
+    this.userBirthdate = null;
   }
 
-  searchResultEmpty() {
-    return this.userSearchService.;
+  searchResultEmpty(): boolean {
+    return this.userSearchService.searchResultsEmpty();
+  }
+
+  ngOnDestroy() {
+    this.clearSearchResult();
   }
 }

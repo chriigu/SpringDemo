@@ -10,6 +10,7 @@ export class UserSearchService {
   userControllerService = inject(UserControllerService);
 
   private userSearchResultSubject = new BehaviorSubject<UserDto[]>([]);
+
   searchResults$ = this.userSearchResultSubject.asObservable();
 
   searchResult: UserDto[] = [{
@@ -43,5 +44,9 @@ export class UserSearchService {
     });
 
     return result$;
+  }
+
+  searchResultsEmpty() : boolean {
+    return this.userSearchResultSubject.value.length === 0;
   }
 }

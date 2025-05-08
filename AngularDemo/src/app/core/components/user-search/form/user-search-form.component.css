@@ -1,9 +1,12 @@
 .user-search-form {
   display: flex;
   align-items: flex-start;
-
 }
 
 mat-form-field {
+  margin-right: 8px;
+}
+
+button {
   margin-right: 8px;
 }

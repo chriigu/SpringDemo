@@ -1,10 +1,14 @@
-import {Component, Input} from '@angular/core';
+import {Component, ViewChild} from '@angular/core';
 import {
-  MatCell, MatCellDef,
+  MatCell,
+  MatCellDef,
   MatColumnDef,
-  MatHeaderCell, MatHeaderCellDef,
-  MatHeaderRow, MatHeaderRowDef,
-  MatRow, MatRowDef,
+  MatHeaderCell,
+  MatHeaderCellDef,
+  MatHeaderRow,
+  MatHeaderRowDef,
+  MatRow,
+  MatRowDef,
   MatTable,
   MatTableDataSource
 } from '@angular/material/table';
@@ -47,8 +51,15 @@ export interface UserSearchResultEntry {
 export class UserSearchResultComponent {
   private destroy$ = new Subject<void>();
 
-  dataSource = new MatTableDataSource();
+  dataSource = new MatTableDataSource<UserDto>();
   displayedColumns: string[] = ['firstName', 'lastName', 'email'];
+
+  @ViewChild(MatSort) sort!: MatSort;
+
+  ngAfterViewInit() {
+    this.dataSource.sort = this.sort;
+  }
+
 
   constructor(private userSearchService : UserSearchService) {
   }
