@@ -46,7 +46,7 @@ public class UserSearchRepositoryImpl implements UserSearchRepository{
         } else {
             order = cb.asc(root.get(orderBy.getEnumName()));
         }
-        int startIndex = page * limit;
+        int startIndex = (page - 1) * limit;
 
         query.select(root).where(cb.and(predicates.toArray(new Predicate[0]))).orderBy(order);
 

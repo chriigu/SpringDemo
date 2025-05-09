@@ -2,10 +2,7 @@ package org.example.springdemo.application.controller.rest;
 
 import org.example.springdemo.application.mapper.api.APIMapper;
 import org.example.springdemo.application.openapi.api.UsersApiDelegate;
-import org.example.springdemo.application.openapi.model.OACreateUserRequest;
-import org.example.springdemo.application.openapi.model.OAOrderDirectionEnum;
-import org.example.springdemo.application.openapi.model.OAUserDto;
-import org.example.springdemo.application.openapi.model.OAUserSearchOrderEnum;
+import org.example.springdemo.application.openapi.model.*;
 import org.example.springdemo.application.service.UserService;
 import org.example.springdemo.application.validators.ParamValidator;
 import org.slf4j.Logger;
@@ -50,17 +47,39 @@ public class UsersApiDelegateImpl implements UsersApiDelegate {
 
     @Override
     public ResponseEntity<OAUserDto> createUser(OACreateUserRequest createUserRequest) {
-        return UsersApiDelegate.super.createUser(createUserRequest);
+        log.info("Create user  [{}]", createUserRequest);
+
+        OAUserDto userByUuid = apiMapper.mapUserToAPIUserDtoResponseEntity(
+                userService.createUser(apiMapper.mapOACreateUserRequest(createUserRequest)));
+
+        if (userByUuid != null) {
+            return ResponseEntity.ok(userByUuid);
+        }
+
+        return ResponseEntity.ofNullable(null);
     }
 
     @Override
     public ResponseEntity<Void> deleteUser(UUID uuid) {
-        return UsersApiDelegate.super.deleteUser(uuid);
+        log.info("Delete user with uuid [{}]", uuid);
+
+        userService.deleteUserByUuid(uuid.toString());
+
+        return ResponseEntity.ok().build();
     }
 
     @Override
-    public ResponseEntity<OAUserDto> updateUserByUuid(UUID uuid, OAUserDto userDto) {
-        return UsersApiDelegate.super.updateUserByUuid(uuid, userDto);
+    public ResponseEntity<OAUserDto> updateUserByUuid(UUID uuid, OAUpdateUserRequest request) {
+        log.info("Update user with uuid [{}]", uuid);
+
+        OAUserDto userByUuid = apiMapper.mapUserToAPIUserDtoResponseEntity(
+                userService.updateUser(uuid.toString(), apiMapper.mapOAUpdateUserRequest(request)));
+
+        if (userByUuid != null) {
+            return ResponseEntity.ok(userByUuid);
+        }
+
+        return ResponseEntity.ofNullable(null);
     }
 
     @Override

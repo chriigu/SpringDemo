@@ -1,10 +1,10 @@
 package org.example.springdemo.application.mapper.api;
 
+import org.example.springdemo.application.dto.CreateUserRequestDto;
+import org.example.springdemo.application.dto.UpdateUserRequestDto;
 import org.example.springdemo.application.enums.OrderDirectionEnum;
 import org.example.springdemo.application.enums.UserSearchOrderByEnum;
-import org.example.springdemo.application.openapi.model.OAOrderDirectionEnum;
-import org.example.springdemo.application.openapi.model.OAUserDto;
-import org.example.springdemo.application.openapi.model.OAUserSearchOrderEnum;
+import org.example.springdemo.application.openapi.model.*;
 import org.example.springdemo.application.record.UserRecord;
 import org.springframework.stereotype.Component;
 
@@ -49,5 +49,24 @@ public class APIMapper {
             return OrderDirectionEnum.DESC;
         }
         throw new IllegalArgumentException("Invalid orderDirectionEnum: " + orderDirectionEnum);
+    }
+
+    public CreateUserRequestDto mapOACreateUserRequest(OACreateUserRequest request) {
+        CreateUserRequestDto createUserRequestDto = new CreateUserRequestDto();
+        createUserRequestDto.setFirstName(request.getFirstName());
+        createUserRequestDto.setLastName(createUserRequestDto.getLastName());
+        createUserRequestDto.setEmail(createUserRequestDto.getEmail());
+        createUserRequestDto.setBirthDate(request.getBirthdate());
+
+        return createUserRequestDto;
+    }
+
+    public UpdateUserRequestDto mapOAUpdateUserRequest(OAUpdateUserRequest request) {
+        UpdateUserRequestDto updateUserRequestDto = new UpdateUserRequestDto();
+        updateUserRequestDto.setFirstName(request.getFirstName());
+        updateUserRequestDto.setLastName(request.getLastName());
+        updateUserRequestDto.setEmail(request.getEmail());
+
+        return updateUserRequestDto;
     }
 }

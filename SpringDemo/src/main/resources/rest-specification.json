@@ -67,7 +67,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/UserDto"
+                "$ref": "#/components/schemas/UpdateUserRequest"
               }
             }
           }
@@ -313,6 +313,29 @@
         }
       },
       "CreateUserRequest": {
+        "type": "object",
+        "required": [
+          "email",
+          "firstName",
+          "lastName",
+          "birthdate"
+        ],
+        "properties": {
+          "email": {
+            "$ref": "#/components/schemas/email"
+          },
+          "firstName": {
+            "$ref": "#/components/schemas/firstName"
+          },
+          "lastName": {
+            "$ref": "#/components/schemas/lastName"
+          },
+          "birthdate": {
+            "$ref": "#/components/schemas/birthdate"
+          }
+        }
+      },
+      "UpdateUserRequest": {
         "type": "object",
         "required": [
           "email",

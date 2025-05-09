@@ -10,4 +10,5 @@ import java.util.Collection;
 
 public interface UserRepository extends JpaRepository<UserEntity, Long>, UserSearchRepository {
     UserEntity findByUuidEquals(@Param("uuid") String uuid);
+    void deleteByUuidEquals(@Param("uuid") String uuid);
 }
