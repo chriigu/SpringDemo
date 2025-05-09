@@ -24,6 +24,12 @@
             <artifactId>spring-boot-starter-web</artifactId>
             <version>${spring-boot.version}</version>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/org.springdoc/springdoc-openapi-starter-webmvc-ui -->
+        <dependency>
+            <groupId>org.springdoc</groupId>
+            <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
+            <version>2.8.6</version>
+        </dependency>
         <!-- https://mvnrepository.com/artifact/io.swagger/swagger-annotations -->
         <!-- https://mvnrepository.com/artifact/io.swagger.core.v3/swagger-annotations -->
         <dependency>
@@ -50,34 +56,34 @@
 
     </dependencies>
 
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.openapitools</groupId>
-                <artifactId>openapi-generator-maven-plugin</artifactId>
-                <version>${openapi-gen.version}</version>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>generate</goal>
-                        </goals>
-                        <configuration>
-                            <inputSpec>${project.baseUri}src/main/resources/META-INF/rest-specification.json</inputSpec>
-                            <generatorName>spring</generatorName>
-                            <apiPackage>org.example.openapi.api</apiPackage>
-                            <modelPackage>org.example.openapi.model</modelPackage>
-                            <supportingFilesToGenerate>
-                                ApiUtil.java
-                            </supportingFilesToGenerate>
-                            <configOptions>
-                                <delegatePattern>true</delegatePattern>
-                                <useSpringBoot3>true</useSpringBoot3>
-                            </configOptions>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-        </plugins>
-    </build>
+<!--    <build>-->
+<!--        <plugins>-->
+<!--            <plugin>-->
+<!--                <groupId>org.openapitools</groupId>-->
+<!--                <artifactId>openapi-generator-maven-plugin</artifactId>-->
+<!--                <version>${openapi-gen.version}</version>-->
+<!--                <executions>-->
+<!--                    <execution>-->
+<!--                        <goals>-->
+<!--                            <goal>generate</goal>-->
+<!--                        </goals>-->
+<!--                        <configuration>-->
+<!--                            <inputSpec>${project.baseUri}src/main/resources/META-INF/rest-specification.json</inputSpec>-->
+<!--                            <generatorName>spring</generatorName>-->
+<!--                            <apiPackage>org.example.openapi.api</apiPackage>-->
+<!--                            <modelPackage>org.example.openapi.model</modelPackage>-->
+<!--                            <supportingFilesToGenerate>-->
+<!--                                ApiUtil.java-->
+<!--                            </supportingFilesToGenerate>-->
+<!--                            <configOptions>-->
+<!--                                <delegatePattern>true</delegatePattern>-->
+<!--                                <useSpringBoot3>true</useSpringBoot3>-->
+<!--                            </configOptions>-->
+<!--                        </configuration>-->
+<!--                    </execution>-->
+<!--                </executions>-->
+<!--            </plugin>-->
+<!--        </plugins>-->
+<!--    </build>-->
 
 </project>

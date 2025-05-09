@@ -1,0 +1,392 @@
+{
+  "openapi": "3.1.1",
+  "info": {
+    "title": "Example OpenAPI Specification",
+    "description": "This OpenAPI Specification is used to be the single point of truth for all other example modules in this project",
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:8081",
+      "description": "Example server url"
+    }
+  ],
+  "paths": {
+    "/users/{uuid}": {
+      "get": {
+        "tags": [
+          "user-controller"
+        ],
+        "operationId": "getUserByUuid",
+        "summary": "Get a single user by uuid",
+        "description": "Get a single user by uuid",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/UuidPathParam"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserDto"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "User not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserDto"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "user-controller"
+        ],
+        "operationId": "updateUserByUuid",
+        "summary": "Updates an existing user by uuid",
+        "description": "Updates an existing user by uuid",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/UuidPathParam"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserDto"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "user-controller"
+        ],
+        "operationId": "deleteUser",
+        "summary": "Delete a user by uuid",
+        "description": "Delete a user by uuid",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/UuidPathParam"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "The resource was deleted successfully"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    },
+    "/users": {
+      "get": {
+        "tags": [
+          "user-controller"
+        ],
+        "operationId": "findUsers",
+        "summary": "Search for users",
+        "description": "Search for users",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/FirstNameQueryParam"
+          },
+          {
+            "$ref": "#/components/parameters/LastNameQueryParam"
+          },
+          {
+            "$ref": "#/components/parameters/EmailQueryParam"
+          },
+          {
+            "$ref": "#/components/parameters/BirthdateQueryParam"
+          },
+          {
+            "$ref": "#/components/parameters/OrderDirectionQueryParam"
+          },
+          {
+            "$ref": "#/components/parameters/OrderQueryParam"
+          },
+          {
+            "$ref": "#/components/parameters/PageQueryParam"
+          },
+          {
+            "$ref": "#/components/parameters/LimitQueryParam"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserSearchResult"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "user-controller"
+        ],
+        "operationId": "createUser",
+        "summary": "Creates a new user",
+        "description": "Creates a new user",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateUserRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserDto"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "parameters": {
+      "UuidPathParam": {
+        "name": "uuid",
+        "in": "path",
+        "description": "User ID",
+        "required": true,
+        "schema": {
+          "$ref": "#/components/schemas/uuid"
+        }
+      },
+      "FirstNameQueryParam": {
+        "name": "firstName",
+        "in": "query",
+        "description": "User firstName Search Param",
+        "required": false,
+        "schema": {
+          "$ref": "#/components/schemas/firstName"
+        }
+      },
+      "LastNameQueryParam": {
+        "name": "lastName",
+        "in": "query",
+        "description": "User lastName Search Param",
+        "required": false,
+        "schema": {
+          "$ref": "#/components/schemas/lastName"
+        }
+      },
+      "EmailQueryParam": {
+        "name": "email",
+        "in": "query",
+        "description": "User Email Search Param",
+        "required": false,
+        "schema": {
+          "$ref": "#/components/schemas/email"
+        }
+      },
+      "BirthdateQueryParam": {
+        "name": "birthdate",
+        "in": "query",
+        "description": "User birthdate Search Param",
+        "required": false,
+        "schema": {
+          "$ref": "#/components/schemas/birthdate"
+        }
+      },
+      "OrderQueryParam": {
+        "name": "order",
+        "in": "query",
+        "description": "Order parameter for which column should be used for sorting",
+        "required": true,
+        "schema": {
+          "$ref": "#/components/schemas/userSearchOrderEnum"
+        }
+      },
+      "OrderDirectionQueryParam": {
+        "name": "orderDirection",
+        "in": "query",
+        "description": "Order parameter in which direction should be sorted. ASC = A-Z",
+        "required": true,
+        "schema": {
+          "$ref": "#/components/schemas/orderDirectionEnum"
+        }
+      },
+      "PageQueryParam": {
+        "name": "page",
+        "in": "query",
+        "description": "Page parameter for pagination starting at value 1",
+        "required": true,
+        "schema": {
+          "$ref": "#/components/schemas/page"
+        }
+      },
+      "LimitQueryParam": {
+        "name": "limit",
+        "in": "query",
+        "description": "Parameter for limiting search results",
+        "required": true,
+        "schema": {
+          "$ref": "#/components/schemas/limit"
+        }
+      }
+    },
+    "schemas": {
+      "UserSearchResult": {
+        "type": "array",
+        "items": {
+          "$ref": "#/components/schemas/UserDto"
+        }
+      },
+      "UserDto": {
+        "type": "object",
+        "required": [
+          "uuid",
+          "email",
+          "firstName",
+          "lastName",
+          "birthdate"
+        ],
+        "properties": {
+          "uuid": {
+            "$ref": "#/components/schemas/uuid"
+          },
+          "email": {
+            "$ref": "#/components/schemas/email"
+          },
+          "firstName": {
+            "$ref": "#/components/schemas/firstName"
+          },
+          "lastName": {
+            "$ref": "#/components/schemas/lastName"
+          },
+          "birthdate": {
+            "$ref": "#/components/schemas/birthdate"
+          }
+        }
+      },
+      "CreateUserRequest": {
+        "type": "object",
+        "required": [
+          "email",
+          "firstName",
+          "lastName"
+        ],
+        "properties": {
+          "email": {
+            "$ref": "#/components/schemas/email"
+          },
+          "firstName": {
+            "$ref": "#/components/schemas/firstName"
+          },
+          "lastName": {
+            "$ref": "#/components/schemas/lastName"
+          }
+        }
+      },
+      "uuid": {
+        "type": "string",
+        "description": "The uuid of a user (Version 7 UUID)",
+        "example": "0195fcfc-c694-7810-9e27-917bb0c3a02a",
+        "format": "uuid"
+      },
+      "email": {
+        "type": "string",
+        "description": "The users' email address",
+        "example": "abc@def.com",
+        "format": "email"
+      },
+      "firstName": {
+        "type": "string",
+        "description": "The users' firstName",
+        "example" : "Mike"
+      },
+      "lastName": {
+        "type": "string",
+        "description": "The users' lastName",
+        "example" : "Bourbon"
+      },
+      "birthdate": {
+        "type": "string",
+        "description": "The users' birthdate. full-date notation as defined by RFC 3339, section 5.6, for example, 2017-07-21",
+        "example" : "1990-01-01",
+        "format": "date"
+      },
+      "userSearchOrderEnum": {
+        "type": "string",
+        "description": "Which column should be sorted",
+        "enum": [
+          "FIRST_NAME",
+          "LAST_NAME",
+          "EMAIL",
+          "BIRTHDATE"
+        ]
+      },
+      "orderDirectionEnum": {
+        "type": "string",
+        "description": "Which direction a column should be sorted. ASC = A-Z",
+        "enum": [
+          "ASC",
+          "DESC"
+        ]
+      },
+      "page": {
+        "type": "int",
+        "description": "pagination parameter starting at 1",
+        "example": "1"
+      },
+      "limit": {
+        "type": "int",
+        "description": "parameter for limiting results e.g. entries per page",
+        "example": "10"
+      }
+    }
+  }
+}

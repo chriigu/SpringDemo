@@ -21,11 +21,11 @@
     </properties>
     <dependencies>
 
-        <dependency>
-            <groupId>org.example</groupId>
-            <artifactId>OpenAPI</artifactId>
-            <version>${demo.version}</version>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>org.example</groupId>-->
+<!--            <artifactId>OpenAPI</artifactId>-->
+<!--            <version>${demo.version}</version>-->
+<!--        </dependency>-->
 
 
         <!--        <dependency>-->
@@ -81,17 +81,75 @@
             <scope>runtime</scope>
         </dependency>
 
-        <!-- https://mvnrepository.com/artifact/org.springdoc/springdoc-openapi-starter-webmvc-ui -->
+        <!-- openapi gen dependencies -->
+        <!-- https://mvnrepository.com/artifact/io.swagger.core.v3/swagger-annotations -->
         <dependency>
-            <groupId>org.springdoc</groupId>
-            <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
-            <version>${springdoc.version}</version>
+            <groupId>io.swagger.core.v3</groupId>
+            <artifactId>swagger-annotations</artifactId>
+            <version>${swagger.io.version}</version>
         </dependency>
+
+        <!-- https://mvnrepository.com/artifact/jakarta.validation/jakarta.validation-api -->
+        <dependency>
+            <groupId>jakarta.validation</groupId>
+            <artifactId>jakarta.validation-api</artifactId>
+            <version>${jakarta-validator.version}</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/org.openapitools/jackson-databind-nullable -->
+        <dependency>
+            <groupId>org.openapitools</groupId>
+            <artifactId>jackson-databind-nullable</artifactId>
+            <version>${openapi-jackson.version}</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/org.springdoc/springdoc-openapi-starter-webmvc-ui -->
+<!--        <dependency>-->
+<!--            <groupId>org.springdoc</groupId>-->
+<!--            <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>-->
+<!--            <version>${springdoc.version}</version>-->
+<!--        </dependency>-->
 
     </dependencies>
 
     <build>
         <plugins>
+            <plugin>
+                <groupId>org.openapitools</groupId>
+                <artifactId>openapi-generator-maven-plugin</artifactId>
+                <version>${openapi-gen.version}</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
+                        <configuration>
+                            <inputSpec>${project.baseUri}src/main/resources/rest-specification.json</inputSpec>
+                            <generatorName>spring</generatorName>
+                            <generateApis>true</generateApis>
+                            <generateModels>true</generateModels>
+                            <modelNamePrefix>OA</modelNamePrefix>
+
+                            <supportingFilesToGenerate>
+                                ApiUtil.java
+                            </supportingFilesToGenerate>
+                            <configOptions>
+<!--                                <apiFirst>false</apiFirst>-->
+<!--                                <interfacesOnly>true</interfacesOnly>-->
+
+                                <basePackage>org.example.springdemo.application.openapi</basePackage>
+                                <apiPackage>org.example.springdemo.application.openapi.api</apiPackage>
+                                <modelPackage>org.example.springdemo.application.openapi.model</modelPackage>
+
+                                <delegatePattern>true</delegatePattern>
+                                <useSpringBoot3>true</useSpringBoot3>
+
+                                <sourceFolder>src/main/java</sourceFolder>
+                            </configOptions>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>

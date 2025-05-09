@@ -1,4 +1,7 @@
 package org.example.springdemo.application.record;
 
-public record UserRecord(String uuid, String email, String firstName, String lastName) {
+import java.time.LocalDate;
+import java.util.UUID;
+
+public record UserRecord(UUID uuid, String email, String firstName, String lastName, LocalDate birthdate) {
 }

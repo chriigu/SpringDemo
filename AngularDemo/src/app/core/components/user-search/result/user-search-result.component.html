@@ -1,15 +1,15 @@
 <div class="mat-elevation-z8">
   <table mat-table [dataSource]="dataSource" matSort>
-    <!-- Firstname Column -->
+    <!-- FirstName Column -->
     <ng-container matColumnDef="firstName">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by firstname">
-        Firstname
+      <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by firstName">
+        FirstName
       </th>
       <td mat-cell *matCellDef="let element"> {{ element.firstName }}</td>
     </ng-container>
     <ng-container matColumnDef="lastName">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by lastname">
-        Lastname
+      <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by lastName">
+        LastName
       </th>
       <td mat-cell *matCellDef="let element"> {{ element.lastName }}</td>
     </ng-container>
@@ -30,13 +30,13 @@
 <!--    <mat-grid-tile>-->
 <!--      {{ result.firstName }}-->
 <!--      <mat-grid-tile-header>-->
-<!--        Firstname-->
+<!--        FirstName-->
 <!--      </mat-grid-tile-header>-->
 <!--    </mat-grid-tile>-->
 <!--    <mat-grid-tile>-->
 <!--      {{ result.lastName }}-->
 <!--      <mat-grid-tile-header>-->
-<!--        Lastname-->
+<!--        LastName-->
 <!--      </mat-grid-tile-header>-->
 <!--    </mat-grid-tile>-->
 <!--    <mat-grid-tile>-->

@@ -32,7 +32,7 @@
         <mvn-clean-plugin.version>3.4.1</mvn-clean-plugin.version>
         <mvn-compiler-plugin.version>3.14.0</mvn-compiler-plugin.version>
         <spring-boot-mvn-plugin.version>3.4.3</spring-boot-mvn-plugin.version>
-        <openapi-gen.version>7.12.0</openapi-gen.version>
+        <openapi-gen.version>7.13.0</openapi-gen.version>
     </properties>
 
     <dependencyManagement>

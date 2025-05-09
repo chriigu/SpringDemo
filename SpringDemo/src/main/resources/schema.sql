@@ -5,5 +5,6 @@ create table IF NOT EXISTS springdemo.USERS(
                         EMAIL nvarchar(128),
                         FIRST_NAME nvarchar(128),
                         LAST_NAME nvarchar(128),
+                        BIRTHDATE date,
                             PRIMARY KEY (ID)
 );
