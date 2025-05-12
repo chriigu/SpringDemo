@@ -1,6 +1,7 @@
 package org.example.userapp.application.service;
 
 import org.example.userapp.application.entity.UserEntity;
+import org.example.userapp.application.exceptions.UserAppNotFoundException;
 import org.example.userapp.application.mapper.internal.UserMapper;
 import org.example.userapp.application.record.CreateUserRequestRecord;
 import org.example.userapp.application.record.UpdateUserRequestRecord;
@@ -53,7 +54,7 @@ public class UserService {
         UserEntity userEntity = userRepository.findByUuidEquals(uuid);
 
         if(userEntity == null) {
-            throw new RuntimeException("User not found");
+            throw new UserAppNotFoundException("User not found");
         }
 
         userEntity.setFirstName(requestDto.firstName());

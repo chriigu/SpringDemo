@@ -129,7 +129,7 @@
                             <generateApis>true</generateApis>
                             <generateModels>true</generateModels>
                             <modelNamePrefix>OA</modelNamePrefix>
-
+                            <templateDirectory>${project.basedir}/src/main/resources/templates</templateDirectory>
                             <supportingFilesToGenerate>
                                 ApiUtil.java
                             </supportingFilesToGenerate>
@@ -137,9 +137,9 @@
 <!--                                <apiFirst>false</apiFirst>-->
 <!--                                <interfacesOnly>true</interfacesOnly>-->
 
-                                <basePackage>org.example.springdemo.application.openapi</basePackage>
-                                <apiPackage>org.example.springdemo.application.openapi.api</apiPackage>
-                                <modelPackage>org.example.springdemo.application.openapi.model</modelPackage>
+                                <basePackage>org.example.userapp.application.openapi</basePackage>
+                                <apiPackage>org.example.userapp.application.openapi.api</apiPackage>
+                                <modelPackage>org.example.userapp.application.openapi.model</modelPackage>
 
                                 <delegatePattern>true</delegatePattern>
                                 <useSpringBoot3>true</useSpringBoot3>
@@ -147,18 +147,6 @@
                                 <sourceFolder>src/main/java</sourceFolder>
                             </configOptions>
                         </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-                <version>${spring-boot-mvn-plugin.version}</version>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>repackage</goal>
-                        </goals>
                     </execution>
                 </executions>
             </plugin>

@@ -278,6 +278,32 @@
         }
       }
     },
+    "responses": {
+      "400": {
+        "content": {
+          "description": "Bad request"
+        },
+        "description": "Bad request"
+      },
+      "401": {
+        "content": {
+          "description": "Unauthorized"
+        },
+        "description": "Unauthorized"
+      },
+      "404": {
+        "content": {
+          "description": "Not found"
+        },
+        "description": "Not found"
+      },
+      "500": {
+        "content": {
+          "description": "General Error"
+        },
+        "description": "General Error"
+      }
+    },
     "schemas": {
       "UserSearchResult": {
         "type": "array",

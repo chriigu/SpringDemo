@@ -9,7 +9,7 @@ import java.util.UUID;
 @Component
 public class UserMapper {
 
-    private UserMapper() {
+    public UserMapper() {
     }
 
     public UserRecord toRecord(final UserEntity entity) {
@@ -22,17 +22,5 @@ public class UserMapper {
                 entity.getFirstName(),
                 entity.getLastName(),
                 entity.getBirthdate());
-    }
-
-    public UserEntity toEntity(final UserRecord userRecord) {
-        if (userRecord == null) {
-            return null;
-        }
-        return new UserEntity(
-                userRecord.uuid().toString(),
-                userRecord.email(),
-                userRecord.firstName(),
-                userRecord.lastName(),
-                userRecord.birthdate());
     }
 }

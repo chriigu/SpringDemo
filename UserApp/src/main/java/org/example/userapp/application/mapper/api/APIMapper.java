@@ -2,7 +2,6 @@ package org.example.userapp.application.mapper.api;
 
 import org.example.userapp.application.enums.OrderDirectionEnum;
 import org.example.userapp.application.enums.UserSearchOrderByEnum;
-import org.example.springdemo.application.openapi.model.*;
 import org.example.userapp.application.openapi.model.*;
 import org.example.userapp.application.record.CreateUserRequestRecord;
 import org.example.userapp.application.record.UpdateUserRequestRecord;

@@ -2,7 +2,7 @@ package org.example.userapp.application.controller.rest;
 
 import org.example.userapp.application.mapper.api.APIMapper;
 import org.example.userapp.application.openapi.api.UsersApiDelegate;
-import org.example.springdemo.application.openapi.model.*;
+import org.example.userapp.application.openapi.model.*;
 import org.example.userapp.application.openapi.model.*;
 import org.example.userapp.application.record.UserSearchQueryParamsRecord;
 import org.example.userapp.application.service.UserService;
