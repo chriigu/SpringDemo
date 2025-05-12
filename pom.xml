@@ -10,7 +10,7 @@
 
     <modules>
         <module>OpenAPI</module>
-        <module>SpringDemo</module>
+        <module>UserApp</module>
         <module>AngularDemo</module>
     </modules>
 
