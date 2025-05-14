@@ -70,6 +70,10 @@ public class UserService {
         return userEntities.stream().map(userMapper::toRecord).toList();
     }
 
+    public long countUsers() {
+        return userRepository.count();
+    }
+
     @Transactional
     public void deleteUserByUuid(final String uuid) {
         userRepository.deleteByUuidEquals(uuid);
