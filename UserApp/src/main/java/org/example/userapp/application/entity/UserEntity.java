@@ -3,8 +3,11 @@ package org.example.userapp.application.entity;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 
 @Entity
@@ -13,25 +16,29 @@ import java.time.LocalDate;
 @Table(name = "USERS", schema = "springdemo")
 public class UserEntity {
 
-    public static final String UUID_COLUMN_ID = "UUID";
-    public static final String FIRST_NAME_COLUMN_ID = "FIRST_NAME";
-    public static final String LAST_NAME_COLUMN_ID = "LAST_NAME";
-    public static final String EMAIL_COLUMN_ID = "EMAIL";
-    public static final String BIRTHDATE_COLUMN_ID = "BIRTHDATE";
-
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    @Column(name = UUID_COLUMN_ID)
+    @Column(name = "UUID")
     private String uuid;
-    @Column(name = FIRST_NAME_COLUMN_ID)
+    @Column(name = "FIRST_NAME")
     private String email;
-    @Column(name = LAST_NAME_COLUMN_ID)
+    @Column(name = "LAST_NAME")
     private String firstName;
-    @Column(name = EMAIL_COLUMN_ID)
+    @Column(name = "EMAIL")
     private String lastName;
-    @Column(name = BIRTHDATE_COLUMN_ID)
+    @Column(name = "BIRTHDATE")
     private LocalDate birthdate;
+
+    @CreationTimestamp
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "CREATED_TS")
+    private LocalDateTime createdTs;
+
+    @UpdateTimestamp
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "LAST_UPDATED_TS")
+    private LocalDateTime lastUpdatedTs;
 
     public UserEntity() {}
 
