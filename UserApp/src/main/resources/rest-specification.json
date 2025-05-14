@@ -279,33 +279,24 @@
       }
     },
     "responses": {
-      "400": {
-        "content": {
-          "description": "Bad request"
-        },
-        "description": "Bad request"
-      },
-      "401": {
-        "content": {
-          "description": "Unauthorized"
-        },
-        "description": "Unauthorized"
-      },
-      "404": {
-        "content": {
-          "description": "Not found"
-        },
-        "description": "Not found"
-      },
-      "500": {
-        "content": {
-          "description": "General Error"
-        },
-        "description": "General Error"
-      }
     },
     "schemas": {
       "UserSearchResult": {
+        "type": "object",
+        "required": [
+          "resultList",
+          "maxResults"
+        ],
+        "properties": {
+          "resultList": {
+            "$ref": "#/components/schemas/UserSearchResultArray"
+          },
+          "maxResults": {
+            "$ref": "#/components/schemas/maxResults"
+          }
+        }
+      },
+      "UserSearchResultArray": {
         "type": "array",
         "items": {
           "$ref": "#/components/schemas/UserDto"
@@ -395,17 +386,17 @@
       "firstName": {
         "type": "string",
         "description": "The users' firstName",
-        "example" : "Mike"
+        "example": "Mike"
       },
       "lastName": {
         "type": "string",
         "description": "The users' lastName",
-        "example" : "Bourbon"
+        "example": "Bourbon"
       },
       "birthdate": {
         "type": "string",
         "description": "The users' birthdate. full-date notation as defined by RFC 3339, section 5.6, for example, 2017-07-21",
-        "example" : "1990-01-01",
+        "example": "1990-01-01",
         "format": "date"
       },
       "userSearchOrderEnum": {
@@ -427,14 +418,19 @@
         ]
       },
       "page": {
-        "type": "int",
+        "type": "integer",
         "description": "pagination parameter starting at 1",
-        "example": "1"
+        "example": 1
       },
       "limit": {
-        "type": "int",
+        "type": "integer",
         "description": "parameter for limiting results e.g. entries per page",
-        "example": "10"
+        "example": 10
+      },
+      "maxResults": {
+        "type": "integer",
+        "description": "Maximal number of users to be found for pagination.",
+        "example": 100
       }
     }
   }
