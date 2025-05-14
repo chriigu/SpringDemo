@@ -9,7 +9,6 @@
     <packaging>pom</packaging>
 
     <modules>
-        <module>OpenAPI</module>
         <module>UserApp</module>
         <module>AngularDemo</module>
     </modules>
