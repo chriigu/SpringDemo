@@ -4,6 +4,7 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.criteria.*;
 import org.example.userapp.application.entity.UserEntity;
+import org.example.userapp.application.entity.UserEntity_;
 import org.example.userapp.application.enums.OrderDirectionEnum;
 import org.example.userapp.application.enums.UserSearchOrderByEnum;
 import org.example.userapp.application.record.UserSearchQueryParamsRecord;
@@ -25,10 +26,10 @@ public class UserSearchRepositoryImpl implements UserSearchRepository{
         CriteriaQuery<UserEntity> query = cb.createQuery(UserEntity.class);
         Root<UserEntity> root = query.from(UserEntity.class);
 
-        Path<String> firstNamePath = root.get("firstName");
-        Path<String> lastNamePath = root.get("lastName");
-        Path<String> emailPath = root.get("email");
-        Path<String> birthdatePath = root.get("birthdate");
+        Path<String> firstNamePath = root.get(UserEntity_.firstName);
+        Path<String> lastNamePath = root.get(UserEntity_.lastName);
+        Path<String> emailPath = root.get(UserEntity_.email);
+        Path<LocalDate> birthdatePath = root.get(UserEntity_.birthdate);
 
         List<Predicate> predicates = setupPredicates(userSearchQueryParamsDto.firstName(), userSearchQueryParamsDto.lastName(), userSearchQueryParamsDto.email(), userSearchQueryParamsDto.birthdate(), cb, firstNamePath, lastNamePath, emailPath, birthdatePath);
 
@@ -36,12 +37,13 @@ public class UserSearchRepositoryImpl implements UserSearchRepository{
 
         int startIndex = getStartIndex(userSearchQueryParamsDto.page(), userSearchQueryParamsDto.limit());
         query.select(root).where(cb.and(predicates.toArray(new Predicate[0]))).orderBy(order);
-
         return em.createQuery(query).setFirstResult(startIndex).setMaxResults(userSearchQueryParamsDto.limit()).getResultList();
     }
 
-    List<Predicate> setupPredicates(String firstName, String lastName, String email, LocalDate birthdate, CriteriaBuilder cb, Path<String> firstNamePath, Path<String> lastNamePath, Path<String> emailPath, Path<String> birthdatePath) {
+    List<Predicate> setupPredicates(String firstName, String lastName, String email, LocalDate birthdate, CriteriaBuilder cb, Path<String> firstNamePath, Path<String> lastNamePath, Path<String> emailPath, Path<LocalDate> birthdatePath) {
         List<Predicate> predicates = new ArrayList<>();
+
+//        cb.like(userEntity_)
 
         addPredicateIfNotEmpty(cb, cb.like(firstNamePath, "%" + firstName + "%"), firstName);
         addPredicateIfNotEmpty(cb, cb.like(lastNamePath, "%" + lastName + "%"), lastName);
@@ -59,6 +61,12 @@ public class UserSearchRepositoryImpl implements UserSearchRepository{
             cb.and(predicate);
         }
     }
+
+//    private Predicate addPredicateIfNotEmpty(CriteriaBuilder cb, Predicate predicate, String param) {
+//        if(ParamValidator.isNotNullAndNotBlank(param)) {
+//            cb.and(predicate);
+//        }
+//    }
 
     Order getOrder(UserSearchOrderByEnum orderBy, OrderDirectionEnum orderDirection, CriteriaBuilder cb, Root<UserEntity> root) {
         Order order;

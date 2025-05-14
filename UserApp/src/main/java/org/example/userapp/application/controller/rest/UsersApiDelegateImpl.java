@@ -3,7 +3,6 @@ package org.example.userapp.application.controller.rest;
 import org.example.userapp.application.mapper.api.APIMapper;
 import org.example.userapp.application.openapi.api.UsersApiDelegate;
 import org.example.userapp.application.openapi.model.*;
-import org.example.userapp.application.openapi.model.*;
 import org.example.userapp.application.record.UserSearchQueryParamsRecord;
 import org.example.userapp.application.service.UserService;
 import org.example.userapp.application.validators.ParamValidator;
@@ -84,36 +83,41 @@ public class UsersApiDelegateImpl implements UsersApiDelegate {
     }
 
     @Override
-    public ResponseEntity<List<OAUserDto>> findUsers(final OAOrderDirectionEnum orderDirection,
-                                                   final OAUserSearchOrderEnum order,
-                                                   final Integer page,
-                                                   final Integer limit,
-                                                   final String firstName,
-                                                   final String lastName,
-                                                   final String email,
-                                                   final LocalDate birthdate) {
+    public ResponseEntity<OAUserSearchResult> findUsers(final OAOrderDirectionEnum orderDirection,
+                                                        final OAUserSearchOrderEnum order,
+                                                        final Integer page,
+                                                        final Integer limit,
+                                                        final String firstName,
+                                                        final String lastName,
+                                                        final String email,
+                                                        final LocalDate birthdate) {
         log.info("Find users with params firstName [{}], lastName [{}], email [{}], birthdate [{}}], orderDirection [{}], order [{}], page [{}], limit [{}]",
                 firstName, lastName, email, birthdate, orderDirection, order, page, limit);
+
+        int maxResults = (int) userService.countUsers();
 
         if (ParamValidator.isNotNullAndNotBlank(firstName) ||
                 ParamValidator.isNotNullAndNotBlank(lastName) ||
                 ParamValidator.isNotNullAndNotBlank(email) ||
                 birthdate != null) {
-            return ResponseEntity.ok(
-                    userService.searchUsers(
-                                    new UserSearchQueryParamsRecord(
-                                            firstName,
-                                            lastName,
-                                            email,
-                                            birthdate,
-                                            apiMapper.mapOAUserSearchOrderEnumToUserSearchOrderByEnum(order),
-                                            apiMapper.mapOAOrderDirectionEnumToOrderDirectionEnum(orderDirection),
-                                            page,
-                                            limit))
+
+            List<OAUserDto> result = userService.searchUsers(
+                            new UserSearchQueryParamsRecord(
+                                    firstName,
+                                    lastName,
+                                    email,
+                                    birthdate,
+                                    apiMapper.mapOAUserSearchOrderEnumToUserSearchOrderByEnum(order),
+                                    apiMapper.mapOAOrderDirectionEnumToOrderDirectionEnum(orderDirection),
+                                    page,
+                                    limit))
                     .stream()
                     .map(apiMapper::mapUserRecordToOAUserDto)
-                    .toList());
+                    .toList();
+
+            return ResponseEntity.ok(new OAUserSearchResult(result, maxResults)
+            );
         }
-        return ResponseEntity.ok(Collections.emptyList());
+        return ResponseEntity.ok(new OAUserSearchResult((Collections.emptyList()), maxResults));
     }
 }
