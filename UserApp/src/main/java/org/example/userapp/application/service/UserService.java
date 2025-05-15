@@ -3,18 +3,19 @@ package org.example.userapp.application.service;
 import org.example.userapp.application.entity.UserEntity;
 import org.example.userapp.application.exceptions.UserAppNotFoundException;
 import org.example.userapp.application.mapper.internal.UserMapper;
-import org.example.userapp.application.record.CreateUserRequestRecord;
-import org.example.userapp.application.record.UpdateUserRequestRecord;
-import org.example.userapp.application.record.UserRecord;
-import org.example.userapp.application.record.UserSearchQueryParamsRecord;
+import org.example.userapp.application.record.*;
 import org.example.userapp.application.repository.UserRepository;
+import org.example.userapp.application.specifications.UserSpecifications;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Collection;
+import java.time.LocalDate;
 import java.util.UUID;
 
 @Service
@@ -64,14 +65,24 @@ public class UserService {
         return userMapper.toRecord(userRepository.saveAndFlush(userEntity));
     }
 
-    public Collection<UserRecord> searchUsers(final UserSearchQueryParamsRecord userSearchQueryParamsDto) {
-        Collection<UserEntity> userEntities = userRepository.findUserEntities(userSearchQueryParamsDto);
-        log.info("UserEntity Result Count [{}]", userEntities.size());
-        return userEntities.stream().map(userMapper::toRecord).toList();
-    }
-
-    public long countUsers() {
-        return userRepository.count();
+    public UserSearchResultRecord searchUsers(final UserSearchQueryParamsRecord userSearchQueryParamsDto) {
+//        Collection<UserEntity> userEntities = userRepository.findUserEntities(userSearchQueryParamsDto);
+        Page<UserEntity> userEntities = userRepository.findAll(UserSpecifications.withFilters(
+                userSearchQueryParamsDto.firstName(),
+                userSearchQueryParamsDto.lastName(),
+                userSearchQueryParamsDto.email(),
+                userSearchQueryParamsDto.birthdate()
+        ), PageRequest.of(
+                0,
+                userSearchQueryParamsDto.limit(),
+                Sort.by(Sort.Direction.fromString(userSearchQueryParamsDto.orderDirection().toString()), userSearchQueryParamsDto.orderBy().toString())
+        ));
+        log.info("UserEntity Result Count [{}]", userEntities.getNumberOfElements());
+        return new UserSearchResultRecord(userEntities.stream().map(userMapper::toRecord).toList(),
+                userEntities.getTotalElements(),
+                userEntities.getNumber(),
+                userEntities.getSize(),
+                userEntities.getTotalPages());
     }
 
     @Transactional

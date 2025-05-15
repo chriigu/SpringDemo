@@ -71,9 +71,9 @@ public class UserSearchRepositoryImpl implements UserSearchRepository{
     Order getOrder(UserSearchOrderByEnum orderBy, OrderDirectionEnum orderDirection, CriteriaBuilder cb, Root<UserEntity> root) {
         Order order;
         if(orderDirection == OrderDirectionEnum.DESC) {
-            order = cb.desc(root.get(orderBy.getEnumName()));
+            order = cb.desc(root.get(orderBy.getValue()));
         } else {
-            order = cb.asc(root.get(orderBy.getEnumName()));
+            order = cb.asc(root.get(orderBy.getValue()));
         }
         return order;
     }

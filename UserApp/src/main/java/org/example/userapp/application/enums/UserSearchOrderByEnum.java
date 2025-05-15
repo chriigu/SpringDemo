@@ -1,24 +1,20 @@
 package org.example.userapp.application.enums;
 
+import lombok.Getter;
+import org.example.userapp.application.entity.UserEntity_;
+
+@Getter
 public enum UserSearchOrderByEnum {
 
-    FIRST_NAME("firstName"),
-    LAST_NAME("lastName"),
-    EMAIL("email"),
-    BIRTHDATE("birthdate");
+    FIRST_NAME(UserEntity_.FIRST_NAME),
+    LAST_NAME(UserEntity_.LAST_NAME),
+    EMAIL(UserEntity_.EMAIL),
+    BIRTHDATE(UserEntity_.BIRTHDATE);
 
     private final String value;
 
     UserSearchOrderByEnum(String value) {
         this.value = value;
-    }
-
-    public String getEnumName() {
-        return value;
-    }
-
-    public String getValue() {
-        return value;
     }
 
     @Override

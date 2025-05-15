@@ -22,11 +22,11 @@ public class UserEntity {
     @Column(name = "UUID")
     private String uuid;
     @Column(name = "FIRST_NAME")
-    private String email;
-    @Column(name = "LAST_NAME")
     private String firstName;
-    @Column(name = "EMAIL")
+    @Column(name = "LAST_NAME")
     private String lastName;
+    @Column(name = "EMAIL")
+    private String email;
     @Column(name = "BIRTHDATE")
     private LocalDate birthdate;
 

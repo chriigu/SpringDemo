@@ -291,8 +291,18 @@
           "resultList": {
             "$ref": "#/components/schemas/UserSearchResultArray"
           },
-          "maxResults": {
-            "$ref": "#/components/schemas/maxResults"
+
+          "totalResults": {
+            "$ref": "#/components/schemas/totalResults"
+          },
+          "totalPages": {
+            "$ref": "#/components/schemas/totalPages"
+          },
+          "pageNumber": {
+            "$ref": "#/components/schemas/pageNumber"
+          },
+          "pageSize": {
+            "$ref": "#/components/schemas/pageSize"
           }
         }
       },
@@ -427,10 +437,25 @@
         "description": "parameter for limiting results e.g. entries per page",
         "example": 10
       },
-      "maxResults": {
+      "totalResults": {
         "type": "integer",
         "description": "Maximal number of users to be found for pagination.",
         "example": 100
+      },
+      "totalPages": {
+        "type": "integer",
+        "description": "Maximal number of pages.",
+        "example": 100
+      },
+      "pageSize": {
+        "type": "integer",
+        "description": "Size of a page",
+        "example": 10
+      },
+      "pageNumber": {
+        "type": "integer",
+        "description": "Current page number.",
+        "example": 1
       }
     }
   }

@@ -6,6 +6,7 @@ import org.example.userapp.application.openapi.model.*;
 import org.example.userapp.application.record.CreateUserRequestRecord;
 import org.example.userapp.application.record.UpdateUserRequestRecord;
 import org.example.userapp.application.record.UserRecord;
+import org.example.userapp.application.record.UserSearchResultRecord;
 import org.springframework.stereotype.Component;
 
 import java.util.Objects;
@@ -21,6 +22,17 @@ public class APIMapper {
         result.setFirstName(userRecord.firstName());
         result.setLastName(userRecord.lastName());
         result.setBirthdate(userRecord.birthdate());
+        return result;
+    }
+
+    public OAUserSearchResult mapUserSearchResultRecordToOAUserSearchResult(final UserSearchResultRecord userSearchResultRecord) {
+        OAUserSearchResult result = new OAUserSearchResult();
+        result.setResultList(userSearchResultRecord.resultList().stream().map(this::mapUserRecordToOAUserDto).toList());
+        result.setTotalResults((int) userSearchResultRecord.totalElements());
+        result.setTotalPages(userSearchResultRecord.totalPages());
+        result.setPageNumber(userSearchResultRecord.pageNumber());
+        result.setPageSize(userSearchResultRecord.pageSize());
+
         return result;
     }
 

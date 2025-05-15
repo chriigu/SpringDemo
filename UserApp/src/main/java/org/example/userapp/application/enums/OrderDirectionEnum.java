@@ -1,5 +1,8 @@
 package org.example.userapp.application.enums;
 
+import lombok.Getter;
+
+@Getter
 public enum OrderDirectionEnum {
 
     ASC("ASC"),
@@ -9,14 +12,6 @@ public enum OrderDirectionEnum {
 
     OrderDirectionEnum(String value) {
         this.value = value;
-    }
-
-    public String getEnumName() {
-        return value;
-    }
-
-    public String getValue() {
-        return value;
     }
 
     @Override
