@@ -15,7 +15,6 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalDate;
 import java.util.UUID;
 
 @Service
@@ -55,18 +54,23 @@ public class UserService {
         UserEntity userEntity = userRepository.findByUuidEquals(uuid);
 
         if(userEntity == null) {
-            throw new UserAppNotFoundException("User not found");
+            throw new UserAppNotFoundException("User not found with uuid: [" + uuid + "]");
+        }
+
+        // No need to go any further when there is nothing to update
+        if(requestDto == null) {
+            return userMapper.toRecord(userEntity);
         }
 
         userEntity.setFirstName(requestDto.firstName());
         userEntity.setLastName(requestDto.lastName());
         userEntity.setEmail(requestDto.email());
+        // Birthdate cannot be changed. Maybe an administrator thing for the future but not in general
 
         return userMapper.toRecord(userRepository.saveAndFlush(userEntity));
     }
 
     public UserSearchResultRecord searchUsers(final UserSearchQueryParamsRecord userSearchQueryParamsDto) {
-//        Collection<UserEntity> userEntities = userRepository.findUserEntities(userSearchQueryParamsDto);
         Page<UserEntity> userEntities = userRepository.findAll(UserSpecifications.withFilters(
                 userSearchQueryParamsDto.firstName(),
                 userSearchQueryParamsDto.lastName(),

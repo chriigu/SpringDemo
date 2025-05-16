@@ -21,8 +21,8 @@ export class UserSearchService {
   }, {
     firstName: 'fn2',
     lastName: 'ln2',
-    email: 'email2',
-    uuid: 'uuid2'
+    email: '2email2',
+    uuid: '2uuid2'
   }];
 
   constructor() { }
