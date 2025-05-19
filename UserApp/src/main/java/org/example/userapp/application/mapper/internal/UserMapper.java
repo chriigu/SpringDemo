@@ -18,9 +18,7 @@ public class UserMapper {
         }
         return new UserRecord(
                 UUID.fromString(entity.getUuid()),
-                entity.getEmail(),
-                entity.getFirstName(),
-                entity.getLastName(),
+                entity.getFirstName(), entity.getLastName(), entity.getEmail(),
                 entity.getBirthdate());
     }
 }

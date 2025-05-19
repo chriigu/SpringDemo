@@ -59,7 +59,7 @@ class UserServiceTest {
         // given
         UserEntity userEntity = new UserEntity();
         when(userRepository.findByUuidEquals(eq("uuid"))).thenReturn(userEntity);
-        UserRecord userRecord = new UserRecord(UUID.randomUUID(), "email", "firstName", "lastName", LocalDate.of(1990,1,1));
+        UserRecord userRecord = new UserRecord(UUID.randomUUID(), "firstName", "lastName", "email", LocalDate.of(1990,1,1));
         when(userMapper.toRecord(eq(userEntity))).thenReturn(userRecord);
 
         // when
@@ -80,7 +80,7 @@ class UserServiceTest {
 
         UserEntity output = new UserEntity("uuid", "em", "fn", "ln", LocalDate.of(1990, 1, 1));
         when(userRepository.saveAndFlush(any(UserEntity.class))).thenReturn(output);
-        UserRecord record = new UserRecord(UUID.randomUUID(), "em", "fn", "ln", LocalDate.of(1990, 1, 1));
+        UserRecord record = new UserRecord(UUID.randomUUID(), "fn", "ln", "em", LocalDate.of(1990, 1, 1));
         when(userMapper.toRecord(output)).thenReturn(record);
 
         // when
@@ -128,7 +128,7 @@ class UserServiceTest {
         existingUser.setEmail("em");
 
         when(userRepository.findByUuidEquals(eq("uuid"))).thenReturn(existingUser);
-        UserRecord userRecord = new UserRecord(UUID.randomUUID(), "em", "fn", "ln", LocalDate.of(1990, 1, 1));
+        UserRecord userRecord = new UserRecord(UUID.randomUUID(), "fn", "ln", "em", LocalDate.of(1990, 1, 1));
         when(userMapper.toRecord(existingUser)).thenReturn(userRecord);
 
         // when
@@ -156,7 +156,7 @@ class UserServiceTest {
         existingUser.setEmail("em");
 
         when(userRepository.findByUuidEquals(eq("uuid"))).thenReturn(existingUser);
-        UserRecord userRecord = new UserRecord(UUID.randomUUID(), "em2", "fn2", "ln2", LocalDate.of(1990, 1, 1));
+        UserRecord userRecord = new UserRecord(UUID.randomUUID(), "fn2", "ln2", "em2", LocalDate.of(1990, 1, 1));
         when(userRepository.saveAndFlush(existingUser)).thenReturn(existingUser);
         when(userMapper.toRecord(any(UserEntity.class))).thenReturn(userRecord);
 

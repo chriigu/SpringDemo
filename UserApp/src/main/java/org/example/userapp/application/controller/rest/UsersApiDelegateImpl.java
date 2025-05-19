@@ -41,7 +41,7 @@ public class UsersApiDelegateImpl implements UsersApiDelegate {
             return ResponseEntity.ok(userByUuid);
         }
 
-        return ResponseEntity.ofNullable(null);
+        return ResponseEntity.notFound().build();
     }
 
     @Override
@@ -55,7 +55,7 @@ public class UsersApiDelegateImpl implements UsersApiDelegate {
             return ResponseEntity.ok(userByUuid);
         }
 
-        return ResponseEntity.ofNullable(null);
+        return ResponseEntity.notFound().build();
     }
 
     @Override
@@ -64,7 +64,7 @@ public class UsersApiDelegateImpl implements UsersApiDelegate {
 
         userService.deleteUserByUuid(uuid.toString());
 
-        return ResponseEntity.ok().build();
+        return ResponseEntity.noContent().build();
     }
 
     @Override
@@ -78,7 +78,7 @@ public class UsersApiDelegateImpl implements UsersApiDelegate {
             return ResponseEntity.ok(userByUuid);
         }
 
-        return ResponseEntity.ofNullable(null);
+        return ResponseEntity.notFound().build();
     }
 
     @Override

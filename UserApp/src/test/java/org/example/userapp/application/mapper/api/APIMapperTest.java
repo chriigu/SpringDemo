@@ -1,8 +1,5 @@
 package org.example.userapp.application.mapper.api;
 
-import java.util.Objects;
-
-import org.example.userapp.application.entity.UserEntity;
 import org.example.userapp.application.enums.OrderDirectionEnum;
 import org.example.userapp.application.enums.UserSearchOrderByEnum;
 import org.example.userapp.application.openapi.model.*;
@@ -13,8 +10,6 @@ import org.example.userapp.application.record.UserSearchResultRecord;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
-import org.junit.jupiter.params.provider.ArgumentsSource;
-import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.MethodSource;
 
 import java.time.LocalDate;
@@ -32,7 +27,7 @@ class APIMapperTest {
     @Test
     void mapUserRecordToOAUserDto() {
         // given
-        UserRecord input = new UserRecord(UUID.randomUUID(), "em", "fn", "ln", LocalDate.of(1990, 1, 1));
+        UserRecord input = new UserRecord(UUID.randomUUID(), "fn", "ln", "em", LocalDate.of(1990, 1, 1));
         // when
         OAUserDto result = apiMapper.mapUserRecordToOAUserDto(input);
 
@@ -50,12 +45,12 @@ class APIMapperTest {
         // given
         UUID uuid1 = UUID.randomUUID();
         UserRecord user1 = new UserRecord(
-                uuid1, "em1", "fn1", "ln1", LocalDate.of(1990, 1, 1)
+                uuid1, "fn1", "ln1", "em1", LocalDate.of(1990, 1, 1)
         );
 
         UUID uuid2 = UUID.randomUUID();
         UserRecord user2 = new UserRecord(
-                uuid2, "em2", "fn2", "ln2", LocalDate.of(1991, 1, 1)
+                uuid2, "fn2", "ln2", "em2", LocalDate.of(1991, 1, 1)
         );
 
         List<UserRecord> users = new ArrayList<>();
