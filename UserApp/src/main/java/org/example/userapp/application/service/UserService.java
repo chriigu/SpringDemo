@@ -81,7 +81,7 @@ public class UserService {
                 userSearchQueryParamsDto.email(),
                 userSearchQueryParamsDto.birthdate()
         ), PageRequest.of(
-                0,
+                userSearchQueryParamsDto.page(),
                 userSearchQueryParamsDto.limit(),
                 Sort.by(Sort.Direction.fromString(userSearchQueryParamsDto.orderDirection().toString()), userSearchQueryParamsDto.orderBy().toString())
         ));
