@@ -31,7 +31,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/UserDto"
+                  "$ref": "#/components/schemas/userDto"
                 }
               }
             }
@@ -41,7 +41,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/UserDto"
+                  "$ref": "#/components/schemas/userDto"
                 }
               }
             }
@@ -67,7 +67,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/UpdateUserRequest"
+                "$ref": "#/components/schemas/updateUserRequest"
               }
             }
           }
@@ -78,7 +78,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/UserDto"
+                  "$ref": "#/components/schemas/userDto"
                 }
               }
             }
@@ -150,7 +150,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/UserSearchResult"
+                  "$ref": "#/components/schemas/userSearchResult"
                 }
               }
             }
@@ -168,10 +168,11 @@
         "summary": "Creates a new user",
         "description": "Creates a new user",
         "requestBody": {
+          "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/CreateUserRequest"
+                "$ref": "#/components/schemas/createUserRequest"
               }
             }
           }
@@ -182,7 +183,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/UserDto"
+                  "$ref": "#/components/schemas/userDto"
                 }
               }
             }
@@ -281,7 +282,7 @@
     "responses": {
     },
     "schemas": {
-      "UserSearchResult": {
+      "userSearchResult": {
         "type": "object",
         "required": [
           "resultList",
@@ -289,7 +290,7 @@
         ],
         "properties": {
           "resultList": {
-            "$ref": "#/components/schemas/UserSearchResultArray"
+            "$ref": "#/components/schemas/userSearchResultArray"
           },
 
           "totalResults": {
@@ -306,13 +307,13 @@
           }
         }
       },
-      "UserSearchResultArray": {
+      "userSearchResultArray": {
         "type": "array",
         "items": {
-          "$ref": "#/components/schemas/UserDto"
+          "$ref": "#/components/schemas/userDto"
         }
       },
-      "UserDto": {
+      "userDto": {
         "type": "object",
         "required": [
           "uuid",
@@ -339,45 +340,45 @@
           }
         }
       },
-      "CreateUserRequest": {
+      "createUserRequest": {
         "type": "object",
         "required": [
-          "email",
           "firstName",
           "lastName",
+          "email",
           "birthdate"
         ],
         "properties": {
-          "email": {
-            "$ref": "#/components/schemas/email"
-          },
           "firstName": {
             "$ref": "#/components/schemas/firstName"
           },
           "lastName": {
             "$ref": "#/components/schemas/lastName"
+          },
+          "email": {
+            "$ref": "#/components/schemas/email"
           },
           "birthdate": {
             "$ref": "#/components/schemas/birthdate"
           }
         }
       },
-      "UpdateUserRequest": {
+      "updateUserRequest": {
         "type": "object",
         "required": [
-          "email",
           "firstName",
-          "lastName"
+          "lastName",
+          "email"
         ],
         "properties": {
-          "email": {
-            "$ref": "#/components/schemas/email"
-          },
           "firstName": {
             "$ref": "#/components/schemas/firstName"
           },
           "lastName": {
             "$ref": "#/components/schemas/lastName"
+          },
+          "email": {
+            "$ref": "#/components/schemas/email"
           }
         }
       },

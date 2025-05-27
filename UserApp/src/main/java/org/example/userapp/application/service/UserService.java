@@ -39,7 +39,6 @@ public class UserService {
     @Transactional
     public UserRecord createUser(final CreateUserRequestRecord requestDto) {
         UserEntity userEntity = new UserEntity();
-        userRepository.save(userEntity);
         userEntity.setUuid(UUID.randomUUID().toString());
         userEntity.setFirstName(requestDto.firstName());
         userEntity.setLastName(requestDto.lastName());
