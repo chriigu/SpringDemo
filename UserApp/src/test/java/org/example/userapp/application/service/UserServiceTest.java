@@ -44,14 +44,14 @@ class UserServiceTest {
     @Test
     void getUserByUuidTestNull() {
         // given
-        when(userRepository.findByUuidEquals(isNull())).thenReturn(null);
-        when(userMapper.toRecord(isNull())).thenReturn(null);
+        when(userRepository.findByUuidEquals(anyString())).thenReturn(null);
 
         // when
-        UserRecord result = userService.findUserByUuid(null);
+        UserAppNotFoundException result = assertThrows(UserAppNotFoundException.class, () ->
+                userService.findUserByUuid("nonExistingUuid"));
 
         // then
-        assertNull(result);
+        assertEquals("User not found with uuid: [nonExistingUuid]", result.getMessage());
     }
 
     @Test
@@ -89,7 +89,6 @@ class UserServiceTest {
         assertNotNull(result);
         assertEquals(record, result);
 
-        verify(userRepository, times(1)).save(any(UserEntity.class));
         verify(userRepository, times(1)).saveAndFlush(any(UserEntity.class));
         verify(userMapper, times(1)).toRecord(any(UserEntity.class));
     }
@@ -188,8 +187,27 @@ class UserServiceTest {
     }
 
     @Test
+    void deleteUserByUuidNonExistingUser() {
+        // given
+        when(userRepository.findByUuidEquals(anyString())).thenReturn(null);
+        // when
+        UserAppNotFoundException result = assertThrows(UserAppNotFoundException.class, () ->
+                userService.deleteUserByUuid("nonExistingUuid"));
+
+        // then
+        assertEquals("User not found with uuid: [nonExistingUuid]", result.getMessage());
+    }
+
+    @Test
     void deleteUserByUuid() {
         // given
+        UserEntity existingUser = new UserEntity();
+        existingUser.setUuid("uuid");
+        existingUser.setFirstName("fn");
+        existingUser.setLastName("ln");
+        existingUser.setEmail("em");
+
+        when(userRepository.findByUuidEquals(eq("uuid"))).thenReturn(existingUser);
         // when
         userService.deleteUserByUuid("uuid");
         // then

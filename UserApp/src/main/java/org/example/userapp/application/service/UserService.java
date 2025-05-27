@@ -33,6 +33,11 @@ public class UserService {
     public UserRecord findUserByUuid(final String uuid) {
         UserEntity byUuid = userRepository.findByUuidEquals(uuid);
         log.info("UserEntityByUuid Result [{}]", byUuid);
+
+        if(byUuid == null) {
+            throw new UserAppNotFoundException("User not found with uuid: [" + uuid + "]");
+        }
+
         return userMapper.toRecord(byUuid);
     }
 
@@ -90,6 +95,12 @@ public class UserService {
 
     @Transactional
     public void deleteUserByUuid(final String uuid) {
+        UserEntity userEntity = userRepository.findByUuidEquals(uuid);
+
+        if(userEntity == null) {
+            throw new UserAppNotFoundException("User not found with uuid: [" + uuid + "]");
+        }
+
         userRepository.deleteByUuidEquals(uuid);
     }
 }
