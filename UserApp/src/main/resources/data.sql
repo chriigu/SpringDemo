@@ -1,4 +1,4 @@
-insert into springdemo.USERS (UUID, EMAIL, FIRST_NAME, LAST_NAME, BIRTHDATE, CREATED_TS, LAST_UPDATED_TS) values('0195fcfc-c694-7810-9e27-917bb0c3a02a', 'abc@abc.abc', 'firstN', 'lastN', '1990-01-01', now(), now());
+insert into springdemo.USERS (UUID, EMAIL, FIRST_NAME, LAST_NAME, BIRTHDATE, CREATED_TS, LAST_UPDATED_TS) values('0195fcfc-c694-7810-9e27-917bb0c3a02a', '0abc0@abc.abc', '0firstN0', '0lastN0', '1990-01-01', now(), now());
 insert into springdemo.USERS (UUID, EMAIL, FIRST_NAME, LAST_NAME, BIRTHDATE, CREATED_TS, LAST_UPDATED_TS) values('0195fcfc-c694-7810-9e27-917bb0c3a02b', '1abc1@abc.abc', '1firstN1', '1lastN1', '1991-01-01', now(), now());
 insert into springdemo.USERS (UUID, EMAIL, FIRST_NAME, LAST_NAME, BIRTHDATE, CREATED_TS, LAST_UPDATED_TS) values('0195fcfc-c694-7810-9e27-917bb0c3a02c', '2abc2@abc.abc', '2firstN2', '2lastN2', '1990-01-01', now(), now());
 insert into springdemo.USERS (UUID, EMAIL, FIRST_NAME, LAST_NAME, BIRTHDATE, CREATED_TS, LAST_UPDATED_TS) values('0195fcfc-c694-7810-9e27-917bb0c3a02d', '3abc3@abc.abc', '3firstN3', '3lastN3', '1990-01-01', now(), now());

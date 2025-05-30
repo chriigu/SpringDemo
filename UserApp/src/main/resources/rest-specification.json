@@ -230,7 +230,7 @@
         "description": "User Email Search Param",
         "required": false,
         "schema": {
-          "$ref": "#/components/schemas/email"
+          "$ref": "#/components/schemas/emailSearchParam"
         }
       },
       "BirthdateQueryParam": {
@@ -409,6 +409,11 @@
         "description": "The users' birthdate. full-date notation as defined by RFC 3339, section 5.6, for example, 2017-07-21",
         "example": "1990-01-01",
         "format": "date"
+      },
+      "emailSearchParam": {
+        "type": "string",
+        "description": "The users' email address",
+        "example": "abc@def.com"
       },
       "userSearchOrderEnum": {
         "type": "string",
