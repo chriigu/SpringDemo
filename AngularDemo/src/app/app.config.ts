@@ -5,6 +5,7 @@ import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/
 import {MAT_TIMEPICKER_CONFIG} from '@angular/material/timepicker';
 import {MomentDateAdapter} from '@angular/material-moment-adapter';
 import {provideHttpClient} from '@angular/common/http';
+import {BASE_PATH} from './generated/core/api/v1';
 
 export const MY_DATE_FORMATS = {
   parse: {
@@ -30,6 +31,8 @@ export const appConfig: ApplicationConfig = {
 
     {provide: DEFAULT_CURRENCY_CODE, useValue: 'CHF'},
     {provide: MAT_TIMEPICKER_CONFIG, useValue: 'de-CH'},
+
+    { provide: BASE_PATH, useValue: 'http://localhost:8081' },
 
     provideHttpClient(),
     provideZoneChangeDetection({ eventCoalescing: true }),

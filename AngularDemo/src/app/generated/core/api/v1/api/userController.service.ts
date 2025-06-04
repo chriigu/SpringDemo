@@ -17,7 +17,17 @@ import { CustomHttpParameterCodec }                          from '../encoder';
 import { Observable }                                        from 'rxjs';
 
 // @ts-ignore
+import { CreateUserRequest } from '../model/createUserRequest';
+// @ts-ignore
+import { OrderDirectionEnum } from '../model/orderDirectionEnum';
+// @ts-ignore
+import { UpdateUserRequest } from '../model/updateUserRequest';
+// @ts-ignore
 import { UserDto } from '../model/userDto';
+// @ts-ignore
+import { UserSearchOrderEnum } from '../model/userSearchOrderEnum';
+// @ts-ignore
+import { UserSearchResult } from '../model/userSearchResult';
 
 // @ts-ignore
 import { BASE_PATH, COLLECTION_FORMATS }                     from '../variables';
@@ -37,14 +47,18 @@ export class UserControllerService extends BaseService {
 
     /**
      * Creates a new user
-     * @param body 
+     * Creates a new user
+     * @param createUserRequest 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public createUser(body?: any, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<UserDto>;
-    public createUser(body?: any, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<UserDto>>;
-    public createUser(body?: any, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<UserDto>>;
-    public createUser(body?: any, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
+    public createUser(createUserRequest: CreateUserRequest, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<UserDto>;
+    public createUser(createUserRequest: CreateUserRequest, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<UserDto>>;
+    public createUser(createUserRequest: CreateUserRequest, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<UserDto>>;
+    public createUser(createUserRequest: CreateUserRequest, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
+        if (createUserRequest === null || createUserRequest === undefined) {
+            throw new Error('Required parameter createUserRequest was null or undefined when calling createUser.');
+        }
 
         let localVarHeaders = this.defaultHeaders;
 
@@ -80,11 +94,11 @@ export class UserControllerService extends BaseService {
             }
         }
 
-        let localVarPath = `/user`;
+        let localVarPath = `/users`;
         return this.httpClient.request<UserDto>('post', `${this.configuration.basePath}${localVarPath}`,
             {
                 context: localVarHttpContext,
-                body: body,
+                body: createUserRequest,
                 responseType: <any>responseType_,
                 withCredentials: this.configuration.withCredentials,
                 headers: localVarHeaders,
@@ -96,15 +110,19 @@ export class UserControllerService extends BaseService {
     }
 
     /**
-     * Delete a user
-     * @param body 
+     * Delete a user by uuid
+     * Delete a user by uuid
+     * @param uuid User ID
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public deleteUser(body?: any, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: undefined, context?: HttpContext, transferCache?: boolean}): Observable<any>;
-    public deleteUser(body?: any, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: undefined, context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<any>>;
-    public deleteUser(body?: any, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: undefined, context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<any>>;
-    public deleteUser(body?: any, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: undefined, context?: HttpContext, transferCache?: boolean}): Observable<any> {
+    public deleteUser(uuid: string, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: undefined, context?: HttpContext, transferCache?: boolean}): Observable<any>;
+    public deleteUser(uuid: string, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: undefined, context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<any>>;
+    public deleteUser(uuid: string, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: undefined, context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<any>>;
+    public deleteUser(uuid: string, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: undefined, context?: HttpContext, transferCache?: boolean}): Observable<any> {
+        if (uuid === null || uuid === undefined) {
+            throw new Error('Required parameter uuid was null or undefined when calling deleteUser.');
+        }
 
         let localVarHeaders = this.defaultHeaders;
 
@@ -119,15 +137,6 @@ export class UserControllerService extends BaseService {
         const localVarTransferCache: boolean = options?.transferCache ?? true;
 
 
-        // to determine the Content-Type header
-        const consumes: string[] = [
-            'application/json'
-        ];
-        const httpContentTypeSelected: string | undefined = this.configuration.selectHeaderContentType(consumes);
-        if (httpContentTypeSelected !== undefined) {
-            localVarHeaders = localVarHeaders.set('Content-Type', httpContentTypeSelected);
-        }
-
         let responseType_: 'text' | 'json' | 'blob' = 'json';
         if (localVarHttpHeaderAcceptSelected) {
             if (localVarHttpHeaderAcceptSelected.startsWith('text')) {
@@ -139,11 +148,10 @@ export class UserControllerService extends BaseService {
             }
         }
 
-        let localVarPath = `/user`;
+        let localVarPath = `/users/${this.configuration.encodeParam({name: "uuid", value: uuid, in: "path", style: "simple", explode: false, dataType: "string", dataFormat: "uuid"})}`;
         return this.httpClient.request<any>('delete', `${this.configuration.basePath}${localVarPath}`,
             {
                 context: localVarHttpContext,
-                body: body,
                 responseType: <any>responseType_,
                 withCredentials: this.configuration.withCredentials,
                 headers: localVarHeaders,
@@ -155,13 +163,53 @@ export class UserControllerService extends BaseService {
     }
 
     /**
+     * Search for users
+     * Search for users
+     * @param orderDirection Order parameter in which direction should be sorted. ASC &#x3D; A-Z
+     * @param order Order parameter for which column should be used for sorting
+     * @param page Page parameter for pagination starting at value 1
+     * @param limit Parameter for limiting search results
+     * @param firstName User firstName Search Param
+     * @param lastName User lastName Search Param
+     * @param email User Email Search Param
+     * @param birthdate User birthdate Search Param
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public findUser(observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<Array<UserDto>>;
-    public findUser(observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<Array<UserDto>>>;
-    public findUser(observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<Array<UserDto>>>;
-    public findUser(observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
+    public findUsers(orderDirection: OrderDirectionEnum, order: UserSearchOrderEnum, page: number, limit: number, firstName?: string, lastName?: string, email?: string, birthdate?: string, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<UserSearchResult>;
+    public findUsers(orderDirection: OrderDirectionEnum, order: UserSearchOrderEnum, page: number, limit: number, firstName?: string, lastName?: string, email?: string, birthdate?: string, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<UserSearchResult>>;
+    public findUsers(orderDirection: OrderDirectionEnum, order: UserSearchOrderEnum, page: number, limit: number, firstName?: string, lastName?: string, email?: string, birthdate?: string, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<UserSearchResult>>;
+    public findUsers(orderDirection: OrderDirectionEnum, order: UserSearchOrderEnum, page: number, limit: number, firstName?: string, lastName?: string, email?: string, birthdate?: string, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
+        if (orderDirection === null || orderDirection === undefined) {
+            throw new Error('Required parameter orderDirection was null or undefined when calling findUsers.');
+        }
+        if (order === null || order === undefined) {
+            throw new Error('Required parameter order was null or undefined when calling findUsers.');
+        }
+        if (page === null || page === undefined) {
+            throw new Error('Required parameter page was null or undefined when calling findUsers.');
+        }
+        if (limit === null || limit === undefined) {
+            throw new Error('Required parameter limit was null or undefined when calling findUsers.');
+        }
+
+        let localVarQueryParameters = new HttpParams({encoder: this.encoder});
+        localVarQueryParameters = this.addToHttpParams(localVarQueryParameters,
+          <any>firstName, 'firstName');
+        localVarQueryParameters = this.addToHttpParams(localVarQueryParameters,
+          <any>lastName, 'lastName');
+        localVarQueryParameters = this.addToHttpParams(localVarQueryParameters,
+          <any>email, 'email');
+        localVarQueryParameters = this.addToHttpParams(localVarQueryParameters,
+          <any>birthdate, 'birthdate');
+        localVarQueryParameters = this.addToHttpParams(localVarQueryParameters,
+          <any>orderDirection, 'orderDirection');
+        localVarQueryParameters = this.addToHttpParams(localVarQueryParameters,
+          <any>order, 'order');
+        localVarQueryParameters = this.addToHttpParams(localVarQueryParameters,
+          <any>page, 'page');
+        localVarQueryParameters = this.addToHttpParams(localVarQueryParameters,
+          <any>limit, 'limit');
 
         let localVarHeaders = this.defaultHeaders;
 
@@ -189,9 +237,10 @@ export class UserControllerService extends BaseService {
         }
 
         let localVarPath = `/users`;
-        return this.httpClient.request<Array<UserDto>>('get', `${this.configuration.basePath}${localVarPath}`,
+        return this.httpClient.request<UserSearchResult>('get', `${this.configuration.basePath}${localVarPath}`,
             {
                 context: localVarHttpContext,
+                params: localVarQueryParameters,
                 responseType: <any>responseType_,
                 withCredentials: this.configuration.withCredentials,
                 headers: localVarHeaders,
@@ -203,13 +252,19 @@ export class UserControllerService extends BaseService {
     }
 
     /**
+     * Get a single user by uuid
+     * Get a single user by uuid
+     * @param uuid User ID
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public readUser(observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<UserDto>;
-    public readUser(observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<UserDto>>;
-    public readUser(observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<UserDto>>;
-    public readUser(observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
+    public getUserByUuid(uuid: string, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<UserDto>;
+    public getUserByUuid(uuid: string, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<UserDto>>;
+    public getUserByUuid(uuid: string, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<UserDto>>;
+    public getUserByUuid(uuid: string, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
+        if (uuid === null || uuid === undefined) {
+            throw new Error('Required parameter uuid was null or undefined when calling getUserByUuid.');
+        }
 
         let localVarHeaders = this.defaultHeaders;
 
@@ -236,7 +291,7 @@ export class UserControllerService extends BaseService {
             }
         }
 
-        let localVarPath = `/user`;
+        let localVarPath = `/users/${this.configuration.encodeParam({name: "uuid", value: uuid, in: "path", style: "simple", explode: false, dataType: "string", dataFormat: "uuid"})}`;
         return this.httpClient.request<UserDto>('get', `${this.configuration.basePath}${localVarPath}`,
             {
                 context: localVarHttpContext,
@@ -251,15 +306,20 @@ export class UserControllerService extends BaseService {
     }
 
     /**
-     * Updates an existing user
-     * @param userDto 
+     * Updates an existing user by uuid
+     * Updates an existing user by uuid
+     * @param uuid User ID
+     * @param updateUserRequest 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public updateUser(userDto?: UserDto, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<UserDto>;
-    public updateUser(userDto?: UserDto, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<UserDto>>;
-    public updateUser(userDto?: UserDto, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<UserDto>>;
-    public updateUser(userDto?: UserDto, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
+    public updateUserByUuid(uuid: string, updateUserRequest?: UpdateUserRequest, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<UserDto>;
+    public updateUserByUuid(uuid: string, updateUserRequest?: UpdateUserRequest, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<UserDto>>;
+    public updateUserByUuid(uuid: string, updateUserRequest?: UpdateUserRequest, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<UserDto>>;
+    public updateUserByUuid(uuid: string, updateUserRequest?: UpdateUserRequest, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
+        if (uuid === null || uuid === undefined) {
+            throw new Error('Required parameter uuid was null or undefined when calling updateUserByUuid.');
+        }
 
         let localVarHeaders = this.defaultHeaders;
 
@@ -295,11 +355,11 @@ export class UserControllerService extends BaseService {
             }
         }
 
-        let localVarPath = `/user`;
+        let localVarPath = `/users/${this.configuration.encodeParam({name: "uuid", value: uuid, in: "path", style: "simple", explode: false, dataType: "string", dataFormat: "uuid"})}`;
         return this.httpClient.request<UserDto>('put', `${this.configuration.basePath}${localVarPath}`,
             {
                 context: localVarHttpContext,
-                body: userDto,
+                body: updateUserRequest,
                 responseType: <any>responseType_,
                 withCredentials: this.configuration.withCredentials,
                 headers: localVarHeaders,

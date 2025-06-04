@@ -14,9 +14,13 @@ import {
 } from '@angular/material/table';
 import {MatGridList, MatGridTile, MatGridTileText} from '@angular/material/grid-list';
 import {MatSort, MatSortHeader} from '@angular/material/sort';
-import {UserDto} from '../../../../generated/core/api/v1';
+import {OrderDirectionEnum, UserDto, UserSearchOrderEnum} from '../../../../generated/core/api/v1';
 import {UserSearchService} from '../../../services/user-search/user-search.service';
 import {Subject, takeUntil} from 'rxjs';
+import {MatPaginator} from '@angular/material/paginator';
+import { DatePipe } from '@angular/common';
+import {formatDate} from '@angular/common';
+
 
 export interface UserSearchResultEntry {
   firstName: string;
@@ -36,49 +40,87 @@ export interface UserSearchResultEntry {
     MatHeaderCell,
     MatSort,
     MatSortHeader,
+    MatPaginator,
     MatTable,
     MatRow,
     MatHeaderRow,
     MatRowDef,
     MatHeaderRowDef,
     MatHeaderCellDef,
-    MatCellDef
+    MatCellDef,
+    DatePipe
   ],
   templateUrl: './user-search-result.component.html',
   standalone: true,
   styleUrl: './user-search-result.component.css'
 })
 export class UserSearchResultComponent {
-  private destroy$ = new Subject<void>();
-
+  displayedColumns: string[] = ['firstName', 'lastName', 'email', 'birthdate'];
   dataSource = new MatTableDataSource<UserDto>();
-  displayedColumns: string[] = ['firstName', 'lastName', 'email'];
+  totalResults = 0;
 
+  private readonly destroy$ = new Subject<void>();
+
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
-  ngAfterViewInit() {
-    this.dataSource.sort = this.sort;
+  // ngAfterViewInit() {
+  //   this.dataSource.sort = this.sort;
+  // }
+
+
+  constructor(private userSearchService: UserSearchService) {
   }
 
+  // ngOnInit() {
+  //   console.log("subscribe");
+  //   this.userSearchService.searchResults$
+  //     .pipe(takeUntil(this.destroy$))
+  //     .subscribe(data => {
+  //       console.log('got data', data);
+  //       this.dataSource.data = data.resultList;
+  //       this.dataSource.paginator?.pageIndex = data.pageNumber;
+  //       this.dataSource.paginator?.pageSize = data.pageSize;
+  //     });
+  // }
 
-  constructor(private userSearchService : UserSearchService) {
-  }
+  ngAfterViewInit(): void {
+    this.sort.sortChange
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(sort => {
+        const sortMap: Record<string, UserSearchOrderEnum> = {
+          firstName: UserSearchOrderEnum.FirstName,
+          lastName: UserSearchOrderEnum.LastName,
+          email: UserSearchOrderEnum.Email,
+          birthdate: UserSearchOrderEnum.Birthdate
+        };
+        const order = sortMap[sort.active] ?? UserSearchOrderEnum.FirstName;
+        const orderDirection = sort.direction === 'asc' ? OrderDirectionEnum.Asc : OrderDirectionEnum.Desc;
 
-  ngOnInit() {
-    console.log("subscribe");
+        this.userSearchService.updateSorting(order, orderDirection);
+      });
+
+    this.paginator.page
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(page => {
+        this.userSearchService.updatePaging(page.pageIndex, page.pageSize); // paginator starts with 0 whilst SpringBoot backend uses 1 as first page
+      });
+
     this.userSearchService.searchResults$
       .pipe(takeUntil(this.destroy$))
       .subscribe(data => {
-        console.log('got data', data);
-        this.dataSource.data = data;
+        this.dataSource.data = data.resultList;
+        this.totalResults = data.totalResults;
+        this.paginator.pageIndex = data.pageNumber;
+        this.paginator.pageSize = data.pageSize; // paginator starts with 0 whilst SpringBoot backend uses 1 as first page
       });
   }
 
 
-
-  ngOnDestroy()
-  {
+  ngOnDestroy() {
     this.destroy$.next();
     this.destroy$.complete();
   }
+
+  protected readonly formatDate = formatDate;
 }

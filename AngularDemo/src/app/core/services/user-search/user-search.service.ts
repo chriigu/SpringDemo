@@ -1,6 +1,12 @@
 import {inject, Injectable} from '@angular/core';
-import {UserControllerService, UserDto} from '../../../generated/core/api/v1';
-import {BehaviorSubject, map, Observable, of, toArray} from 'rxjs';
+import {
+  OrderDirectionEnum,
+  UserControllerService,
+  UserSearchOrderEnum,
+  UserSearchResult
+} from '../../../generated/core/api/v1';
+import {BehaviorSubject} from 'rxjs';
+import {SearchUsersRequestDto} from '../../dto/user-search/SearchUsersRequest';
 
 @Injectable({
   providedIn: 'root'
@@ -9,44 +15,76 @@ export class UserSearchService {
 
   userControllerService = inject(UserControllerService);
 
-  private userSearchResultSubject = new BehaviorSubject<UserDto[]>([]);
-
+  private readonly userSearchRequestSubject = new BehaviorSubject<SearchUsersRequestDto>({
+    firstName: "",
+    lastName: "",
+    email: "",
+    birthdate: "",
+    order: UserSearchOrderEnum.FirstName,
+    orderDirection: OrderDirectionEnum.Asc,
+    pageNumber: 0,
+    pageSize: 10
+  })
+  private readonly userSearchResultSubject = new BehaviorSubject<UserSearchResult>({
+    resultList: [],
+    totalPages: 1,
+    totalResults: 0,
+    pageNumber: 0,
+    pageSize: 10
+  });
   searchResults$ = this.userSearchResultSubject.asObservable();
 
-  searchResult: UserDto[] = [{
-    firstName: 'fn',
-    lastName: 'ln',
-    email: 'email',
-    uuid: 'uuid'
-  }, {
-    firstName: 'fn2',
-    lastName: 'ln2',
-    email: '2email2',
-    uuid: '2uuid2'
-  }];
+  constructor() {
+  }
 
-  constructor() { }
+  updateFilters(filters: Partial<SearchUsersRequestDto>) {
+    const current = this.userSearchRequestSubject.value;
+    this.userSearchRequestSubject.next({...current, ...filters})
+    this.searchUsers();
+  }
 
-  searchUsers() {
-    this.callSearchUsersApi().subscribe(results =>
-    {this.userSearchResultSubject.next(results)})
+  updateSorting(order: UserSearchOrderEnum, orderDirection: OrderDirectionEnum) {
+    this.updateFilters({order, orderDirection})
+  }
+
+  updatePaging(pageNumber: number, pageSize: number) {
+    this.updateFilters({pageSize, pageNumber});
+  }
+
+  private searchUsers(): void {
+    const current = this.userSearchRequestSubject.value;
+    this.userControllerService.findUsers(
+      current.orderDirection,
+      current.order,
+      current.pageNumber,
+      current.pageSize,
+      current.firstName,
+      current.lastName,
+      current.email,
+      current.birthdate
+    ).subscribe({
+      next:
+        result => {
+          this.userSearchResultSubject.next(result);
+        },
+      error: err => {
+        console.log("Error searching for users:", err);
+        this.clearSearchResult();
+      },
+    });
+  }
+
+  searchResultsEmpty(): boolean {
+    return this.userSearchResultSubject.value.totalResults === 0;
   }
 
   clearSearchResult() {
-    this.userSearchResultSubject.next([]);
-  }
-
-  private callSearchUsersApi() : Observable<UserDto[]> {
-    const result$ = of(this.searchResult);
-
-    of(this.searchResult).subscribe(resultArray => {
-      console.log("Result as JSON string:", JSON.stringify(resultArray));
+    this.userSearchResultSubject.next({
+      resultList: [],
+      totalPages: 1,
+      totalResults: 0,
+      pageNumber: 0,
+      pageSize: 10
     });
-
-    return result$;
-  }
-
-  searchResultsEmpty() : boolean {
-    return this.userSearchResultSubject.value.length === 0;
   }
 }

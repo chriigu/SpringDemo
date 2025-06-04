@@ -42,7 +42,7 @@ export type DataType = StandardDataType | string;
  * Standard formats as defined in <a href="https://swagger.io/specification/#data-types">OpenAPI Specification: Data Types</a>
  */
 export type StandardDataFormat =
-  | "integer"
+  | "int32"
   | "int64"
   | "float"
   | "double"

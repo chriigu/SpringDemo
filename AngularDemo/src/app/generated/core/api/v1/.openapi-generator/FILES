@@ -1,5 +1,4 @@
 .gitignore
-.openapi-generator-ignore
 README.md
 api.base.service.ts
 api.module.ts
@@ -9,7 +8,12 @@ configuration.ts
 encoder.ts
 git_push.sh
 index.ts
+model/createUserRequest.ts
 model/models.ts
+model/orderDirectionEnum.ts
+model/updateUserRequest.ts
 model/userDto.ts
+model/userSearchOrderEnum.ts
+model/userSearchResult.ts
 param.ts
 variables.ts

@@ -10,6 +10,9 @@ import {MatMomentDateModule} from '@angular/material-moment-adapter';
 import moment from 'moment';
 import {DateAdapter} from '@angular/material/core';
 import {UserSearchService} from '../../../services/user-search/user-search.service';
+import {SearchUsersRequestDto} from '../../../dto/user-search/SearchUsersRequest';
+import {OrderDirectionEnum, UserSearchOrderEnum} from '../../../../generated/core/api/v1';
+import {last} from 'rxjs';
 
 
 @Component({
@@ -50,12 +53,20 @@ export class UserSearchFormComponent {
     console.log('Moment locale:', moment.locale()); // should log 'de-ch'
   }
 
-  constructor(private adapter: DateAdapter<any>, private userSearchService: UserSearchService) {
+  constructor(private readonly adapter: DateAdapter<any>, private readonly userSearchService: UserSearchService) {
   }
 
   submitUserSearch() {
     console.log("Search user");
-    this.userSearchService.searchUsers();
+
+    let request: Partial<SearchUsersRequestDto> = {
+      firstName: this.userFirstName,
+      lastName: this.userLastName,
+      email: this.userEmail,
+      birthdate: this.userBirthdate?.toISOString().slice(0,10) ?? ''
+    }
+
+    this.userSearchService.updateFilters(request);
   }
 
   clearSearchResult() {
